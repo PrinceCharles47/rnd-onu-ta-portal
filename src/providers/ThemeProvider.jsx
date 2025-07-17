@@ -27,6 +27,7 @@ const theme = createTheme({
   //   colossal: rem(120),
   // },
   components: {
+    // adds a 'responsive' value option to the Container's size prop.
     Container: Container.extend({
       classNames: (_, { size }) => ({
         root: cx({ [classes.responsiveContainer]: size === "responsive" }),
@@ -36,5 +37,5 @@ const theme = createTheme({
 });
 
 export default ({ children }) => {
-  return <MantineProvider theme={theme}>{children}</MantineProvider>;
+  return <MantineProvider theme={theme} defaultColorScheme="light">{children}</MantineProvider>;
 };

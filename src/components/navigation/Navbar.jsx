@@ -1,31 +1,30 @@
-import { useState } from "react";
 import {
-  IconBellRinging,
-  IconDatabaseImport,
-  IconFingerprint,
-  IconKey,
-  IconLogout,
-  IconReceipt2,
-  IconSettings,
-  IconSwitchHorizontal,
-  IconAdjustments,
   IconCalendarStats,
   IconFileAnalytics,
-  IconGauge,
-  IconLock,
   IconNotes,
-  IconChevronRight,
+  IconDotsVertical,
+  IconLogout,
+  IconSettings,
 } from "@tabler/icons-react";
 import {
-  Code,
+  ActionIcon,
   ScrollArea,
   Avatar,
   Group,
+  Image,
   Text,
-  UnstyledButton,
+  Menu,
+  Box,
+  useComputedColorScheme,
 } from "@mantine/core";
+
 import NavLinksGroup from "./NavLinksGroup";
+
+import logoLight from "../../assets/H_ConvergeLogo_Color.png";
+import logoDark from "../../assets/H_ConvergeLogo_White.png";
 import classes from "./Navigation.module.css";
+
+import { useNavigate } from "react-router";
 
 const mockdata = [
   {
@@ -33,8 +32,8 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-      { label: "Ongoing TA", link: "/dashboard/ongoing-ta" },
-      { label: "Completed TA", link: "/dashboard/completed-ta" },
+      { label: "Ongoing TA", link: "/" },
+      { label: "Completed TA", link: "/completed-ta" },
     ],
   },
   {
@@ -53,19 +52,30 @@ const mockdata = [
       { label: "Test Plan", link: "/topology/test-plan" },
     ],
   },
-  { label: "Tshoot Tool", icon: IconFileAnalytics },
+  { label: "Tshoot Tool", icon: IconFileAnalytics, parentLink: "tshoot-tool" },
 ];
 
 export function Navbar() {
+  const computedColorScheme = useComputedColorScheme("light", {
+    getInitialValueInEffect: true,
+  });
+  const navigate = useNavigate();
   const links = mockdata.map((item) => (
     <NavLinksGroup {...item} key={item.label} />
   ));
 
+  const logOut = () => {
+    navigate("/sign-in");
+  };
+
   return (
     <nav className={classes.navbar}>
       <div className={classes.header}>
-        <Group justify="space-between">
-          <Code fw={700}>v3.1.2</Code>
+        <Group justify="center">
+          <Image
+            src={computedColorScheme === "light" ? logoLight : logoDark}
+            maw={175}
+          />
         </Group>
       </div>
 
@@ -74,33 +84,51 @@ export function Navbar() {
       </ScrollArea>
 
       <div className={classes.footer}>
-        <UserButton />
+        <UserButton onLogOut={logOut} />
       </div>
     </nav>
   );
 }
 
-function UserButton() {
+function UserButton({ onLogOut }) {
   return (
-    <UnstyledButton className={classes.user}>
+    <Box className={classes.user}>
       <Group>
-        <Avatar
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
-          radius="xl"
-        />
+        <Avatar radius="xl" />
 
         <div style={{ flex: 1 }}>
-          <Text size="sm" fw={500}>
-            Harriette Spoonlicker
+          <Text size="sm" fw={500} lineClamp={1}>
+            Prince Charles M. Clemente
           </Text>
 
           <Text c="dimmed" size="xs">
-            hspoonlicker@outlook.com
+            Developer
           </Text>
         </div>
 
-        <IconChevronRight size={14} stroke={1.5} />
+        {/* menu button */}
+        <Menu shadow="md" width={200}>
+          <Menu.Target>
+            <ActionIcon variant="subtle" radius="xl" aria-label="Settings">
+              <IconDotsVertical stroke={1.5} />
+            </ActionIcon>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Item leftSection={<IconSettings size={14} />}>
+              Settings
+            </Menu.Item>
+            {/* <Menu.Divider /> */}
+            <Menu.Item
+              color="red"
+              leftSection={<IconLogout size={14} />}
+              onClick={onLogOut}
+            >
+              Log out
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
       </Group>
-    </UnstyledButton>
+    </Box>
   );
 }

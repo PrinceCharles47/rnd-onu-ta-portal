@@ -1,0 +1,24 @@
+import { Group, ActionIcon } from "@mantine/core";
+import { IconEye } from "@tabler/icons-react";
+
+export default function TableRowAction({
+  onView = () => {},
+  disableView = false,
+  children,
+}) {
+  return (
+    <Group gap="xs" justify="end">
+      {children}
+      {!disableView && (
+        <ActionIcon
+          variant="light"
+          onClick={onView}
+          radius="md"
+          aria-label="View ONU details"
+        >
+          <IconEye size={20} stroke={1.5} />
+        </ActionIcon>
+      )}
+    </Group>
+  );
+}

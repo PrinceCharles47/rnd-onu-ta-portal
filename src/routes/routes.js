@@ -6,14 +6,12 @@ import { topologyRoutes } from "./topology/topology-routes";
 import { tshootToolRoutes } from "./tshoot-tool/tshoot-tool-routes";
 
 // unprotected routes
+import { authRoutes } from "./auth/auth-routes";
 
 export const router = createBrowserRouter([
   {
     Component: RootLayout,
     children: [dashboardRoutes, userRoutes, topologyRoutes, tshootToolRoutes],
   },
-  // {
-  //   path: "/sign-in",
-  //   Component: SignInPage,
-  // },
+  ...authRoutes,
 ]);

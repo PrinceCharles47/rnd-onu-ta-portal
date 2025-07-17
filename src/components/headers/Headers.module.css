@@ -1,0 +1,14 @@
+/* PageHeader */
+.pageHeaderLight,
+.pageHeaderDark {
+  height: 175px;
+  padding-top: 2rem;
+}
+
+.pageHeaderLight {
+  background-image: url(../../assets/bg.svg);
+}
+
+.pageHeaderDark {
+  background-image: url(../../assets/bg2.svg);
+}

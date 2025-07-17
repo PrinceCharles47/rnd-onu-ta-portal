@@ -8,6 +8,7 @@ export default function NavLinksGroup({
   icon: Icon,
   label,
   initiallyOpened,
+  parentLink,
   links,
 }) {
   const hasLinks = Array.isArray(links);
@@ -25,12 +26,13 @@ export default function NavLinksGroup({
         className={classes.control}
       >
         <Group justify="space-between" gap={0}>
-          <Box style={{ display: "flex", alignItems: "center" }}>
-            <ThemeIcon variant="light" size={30}>
+          <MainNavItemWrapper parentLink={parentLink}>
+            <ThemeIcon variant="light" size={30} radius="md">
               <Icon size={18} />
             </ThemeIcon>
             <Box ml="md">{label}</Box>
-          </Box>
+          </MainNavItemWrapper>
+
           {hasLinks && (
             <IconChevronRight
               className={classes.chevron}
@@ -43,5 +45,24 @@ export default function NavLinksGroup({
       </UnstyledButton>
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
+  );
+}
+
+function MainNavItemWrapper({ parentLink, children }) {
+  return parentLink ? (
+    <Link
+      to={parentLink}
+      style={{
+        display: "flex",
+        flexGrow: 1,
+        alignItems: "center",
+        textDecoration: "none",
+        color: "inherit",
+      }}
+    >
+      {children}
+    </Link>
+  ) : (
+    <Box style={{ display: "flex", alignItems: "center" }}>{children}</Box>
   );
 }

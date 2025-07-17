@@ -102,3 +102,36 @@
     );
   }
 }
+
+/* NavLayout */
+.appShellMain {
+  padding-inline-start: calc(var(--app-shell-navbar-offset, 0rem));
+  padding-inline-end: calc(var(--app-shell-aside-offset, 0rem));
+  padding-top: calc(var(--app-shell-header-offset, 0rem));
+}
+
+/* Theme toggle */
+.icon {
+  width: 22px;
+  height: 22px;
+}
+
+.dark {
+  @mixin dark {
+    display: none;
+  }
+
+  @mixin light {
+    display: block;
+  }
+}
+
+.light {
+  @mixin light {
+    display: none;
+  }
+
+  @mixin dark {
+    display: block;
+  }
+}

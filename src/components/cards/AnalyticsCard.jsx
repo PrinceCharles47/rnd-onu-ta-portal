@@ -3,7 +3,7 @@ import classes from "./Cards.module.css";
 
 export default function AnalyticsCard({ title, value, icon: Icon }) {
   return (
-    <Paper withBorder p="md" radius="md">
+    <Paper withBorder p="md" radius="lg">
       <Group justify="space-between">
         <Text size="xs" c="dimmed" className={classes.title}>
           {title}
