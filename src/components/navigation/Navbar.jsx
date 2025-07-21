@@ -31,10 +31,11 @@ const mockdata = [
     label: "Dashboard",
     icon: IconNotes,
     initiallyOpened: true,
-    links: [
-      { label: "Ongoing TA", link: "/" },
-      { label: "Completed TA", link: "/completed-ta" },
-    ],
+    parentLink: "/",
+    // links: [
+    //   { label: "Ongoing TA", link: "/" },
+    //   { label: "Completed TA", link: "/completed-ta" },
+    // ],
   },
   {
     label: "User",

@@ -5,6 +5,7 @@ import PageHeader from "../../components/headers/PageHeader";
 import DefaultTable from "../../components/tables/DefaultTable";
 import TableRowAction from "../../components/buttons/TableRowAction";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
+import StatusChip from "../../components/chips/StatusChip";
 
 import { useCallback, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -23,26 +24,31 @@ const tableData = [
   {
     olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
     bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    status: "ongoing",
   },
   {
     olt: "ZTE C650 (NOKIA-TLAB00)",
     bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    status: "ongoing",
   },
   {
     olt: "ZTE C320 (NOKIA-TLAB00)",
     bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    status: "ongoing",
   },
   {
     olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
     bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    status: "ongoing",
   },
   {
     olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
     bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    status: "ongoing",
   },
 ];
 
-export default function ServiceTestPage({}) {
+export default function ServicesPage({}) {
   const navigate = useNavigate();
   const { id: onuId } = useParams();
 
@@ -57,7 +63,9 @@ export default function ServiceTestPage({}) {
           ...data,
           action: (
             <TableRowAction disableView>
-              <ViewBtn onClick={() => redirect(redirectPath)} />
+              <ViewBtn
+                onClick={() => redirect(`${redirectPath}/${data.olt}`)}
+              />
             </TableRowAction>
           ),
         };
@@ -72,41 +80,24 @@ export default function ServiceTestPage({}) {
         ...item,
         panel: (
           <DefaultTable
-            items={getTableItems(`/${onuId}/${item.label}/olt`)}
+            items={getTableItems(`/${onuId}/${item.label}`)}
             headers={OLT_HEADERS}
             title={tableTitle.title}
             subtitle={tableTitle.subtitle}
             disableSearch
           />
         ),
-        pill: <AccordionPill label={item.status} />,
+        pill: <StatusChip status={item.status} />,
       };
     });
   }, [tableData]);
 
   return (
-    <PageWrapper>
-      <PageHeader {...pageHeader} />
-      <Container size="xl" mt="-50px">
-        <Paper mx="md" radius="lg">
-          <AccordionLayout items={accordionItems} />
-        </Paper>
-      </Container>
+    <PageWrapper header={pageHeader}>
+      <Paper mx="md" radius="lg">
+        <AccordionLayout items={accordionItems} />
+      </Paper>
     </PageWrapper>
-  );
-}
-
-function AccordionPill({ label }) {
-  return (
-    <Pill
-      style={{
-        backgroundColor: "var(--mantine-color-blue-5)",
-        fontWeight: 700,
-        color: "white",
-      }}
-    >
-      {label.toUpperCase()}
-    </Pill>
   );
 }
 

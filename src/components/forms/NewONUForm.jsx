@@ -1,37 +1,19 @@
 import {
   Drawer,
   Group,
-  ScrollArea,
+  Select,
   Text,
   TextInput,
   Stack,
   Button,
   Divider,
+  SimpleGrid,
 } from "@mantine/core";
 
 import { useForm, isNotEmpty } from "@mantine/form";
+import { addONUFormFields } from "../../utils/forms";
 
-const textFields = [
-  { name: "ONU Name", type: "text", key: "onuName" },
-  { name: "Model", type: "text", key: "model" },
-  { name: "WiFi Type", type: "text", key: "wifiType" },
-  { name: "Firmware", type: "text", key: "firmware" },
-  { name: "ONT Type", type: "text", key: "ontType" },
-  { name: "Product ID", type: "text", key: "productID" },
-  { name: "Vendor ID", type: "text", key: "vendorID" },
-  { name: "Equipment ID", type: "text", key: "equipmentID" },
-  { name: "SN Format", type: "text", key: "snFormat" },
-  { name: "Software Version", type: "text", key: "softwareVersion" },
-  { name: "PON Chipset", type: "text", key: "ponChipset" },
-  { name: "ONT Interface", type: "text", key: "ontInterface" },
-  { name: "TCONT Numbers", type: "text", key: "tcontNumbers" },
-  { name: "QOS-Queue Numbers", type: "text", key: "qosQueueNumbers" },
-  { name: "IGMP Version", type: "text", key: "igmpVersion" },
-  { name: "VOIP Protocol", type: "text", key: "voipProtocol" },
-  { name: "3rd Party OLT Support", type: "text", key: "thirdPartyOLTSupport" },
-];
-
-export default function AddONUDialog({ opened, onClose }) {
+export default function NewONUForm({ opened, onClose }) {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -74,6 +56,23 @@ export default function AddONUDialog({ opened, onClose }) {
     },
   });
 
+  const getTextField = (props) => {
+    const { type, formkey } = props;
+    const commonProps = {
+      ...form.getInputProps(formkey),
+      ...props,
+    };
+
+    switch (type) {
+      case "text":
+        return <TextInput key={form.key(formkey)} {...commonProps} />;
+      case "select":
+        return <Select key={form.key(formkey)} {...commonProps} />;
+      default:
+        return <TextInput key={form.key(formkey)} {...commonProps} />;
+    }
+  };
+
   const validate = () => {
     console.log(form.getValues());
   };
@@ -81,8 +80,6 @@ export default function AddONUDialog({ opened, onClose }) {
   return (
     <>
       <Drawer
-        offset={8}
-        radius="md"
         opened={opened}
         onClose={onClose}
         title={
@@ -91,18 +88,13 @@ export default function AddONUDialog({ opened, onClose }) {
           </Text>
         }
         position="right"
-        scrollAreaComponent={ScrollArea.Autosize}
+        size="xl"
       >
         <form onSubmit={form.onSubmit(validate)}>
           <Stack>
-            {textFields.map((field) => (
-              <TextInput
-                label={field.name}
-                key={form.key(field.key)}
-                type={field.type}
-                {...form.getInputProps(field.key)}
-              />
-            ))}
+            <SimpleGrid spacing="xl" cols={{ base: 1, md: 2 }}>
+              {addONUFormFields.map((field) => getTextField(field))}
+            </SimpleGrid>
 
             <Divider mt="md" />
 
@@ -118,14 +110,5 @@ export default function AddONUDialog({ opened, onClose }) {
         </form>
       </Drawer>
     </>
-  );
-}
-
-function TextField({ label, type, props }) {
-  return (
-    <Group justify="space-between">
-      <Text>{label}</Text>
-      <TextInput type={type} {...props} />
-    </Group>
   );
 }

@@ -1,8 +1,8 @@
 import DashboardLayout from "../../pages/dashboard/DashboardLayout";
-import OngoingTAPage from "../../pages/dashboard/OngoingTAPage";
-import CompletedTAPage from "../../pages/dashboard/CompletedTAPage";
-import ServiceTestPage from "../../pages/dashboard/ServiceTestPage";
-import TestCasePage from "../../pages/test-case/TestCasePage";
+import DashboardPage from "../../pages/dashboard/DashboardPage";
+import ServicesPage from "../../pages/ta-ready/ServicesPage";
+import TestCasesPage from "../../pages/ta-ready/TestCasesPage";
+import IOFRequestPage from "../../pages/iof-request/IOFRequestPage";
 
 export const dashboardRoutes = {
   path: "/",
@@ -12,19 +12,19 @@ export const dashboardRoutes = {
       children: [
         {
           index: true,
-          Component: OngoingTAPage,
-        },
-        {
-          path: "completed-ta",
-          Component: CompletedTAPage,
+          Component: DashboardPage,
         },
         {
           path: "data-plan/:id",
-          Component: ServiceTestPage,
+          Component: ServicesPage,
         },
         {
-          path: ":id/:service/olt",
-          Component: TestCasePage,
+          path: ":id/:service/:olt",
+          Component: TestCasesPage,
+        },
+        {
+          path: "pending-iof/:id",
+          Component: IOFRequestPage,
         },
       ],
     },

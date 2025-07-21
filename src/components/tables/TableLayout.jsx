@@ -37,7 +37,7 @@ export default function TableLayout({
   headers,
   paginationLimit,
   handleSortedData,
-  disableSearch = false
+  disableSearch = false,
 }) {
   const {
     page,
@@ -90,7 +90,6 @@ export default function TableLayout({
           horizontalSpacing="md"
           verticalSpacing="sm"
           miw={800}
-          layout="fixed"
         >
           <Table.Tbody>
             <Table.Tr>{tableHeaders}</Table.Tr>

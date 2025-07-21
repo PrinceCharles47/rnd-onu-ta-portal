@@ -1,13 +1,20 @@
 import { useState } from "react";
-import { Text, Box, Slider, TextInput } from "@mantine/core";
+import { Text, Box, Slider, TextInput, SimpleGrid } from "@mantine/core";
 
 export default function UploadType({ label }) {
   const [zoom, setZoom] = useState(50);
-  const [url, setURL] = useState("https://en.wikipedia.org/wiki/Main_Page");
+  const [url, setURL] = useState("en.wikipedia.org/wiki/Main_Page");
 
   return (
     <>
-      <Text>{label}</Text>
+      <SimpleGrid cols={{ base: 1, xs: 2 }}>
+        <TextInput
+          label="Input URL"
+          onChange={(e) => setURL(e.currentTarget.value)}
+        />
+        <TextInput label="Upload screenshot" />
+      </SimpleGrid>
+
       <Slider
         color="blue"
         value={zoom}
@@ -18,11 +25,10 @@ export default function UploadType({ label }) {
           { value: 80, label: "80%" },
         ]}
       />
-      <Text>{JSON.stringify(url)}</Text>
-      <TextInput my="xl" onChange={(e) => setURL(e.currentTarget.value)} />
+
       <Box>
         <iframe
-          src={url}
+          src={`https://${url}`}
           frameborder="0"
           style={{ width: "100%", aspectRatio: "1/1", zoom: zoom / 100 }}
         />

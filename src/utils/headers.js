@@ -8,6 +8,7 @@ import {
 const OLT_HEADERS = [
   { name: "OLT", withSort: false },
   { name: "BRAS", withSort: false },
+  { name: "Status", withSort: false },
   { name: "", withSort: false },
 ];
 
@@ -15,22 +16,22 @@ const SERVICES_HEADERS = [
   {
     label: "FTTX",
     description: "FiberX",
-    status: "Ongoing",
+    status: "ongoing",
   },
   {
     label: "Cielo",
     description: "SkyCable",
-    status: "Pending",
+    status: "ongoing",
   },
   {
     label: "FAST",
     description: "",
-    status: "Complete",
+    status: "complete",
   },
   {
     label: "IBIZ",
     description: "",
-    status: "Complete",
+    status: "complete",
   },
 ];
 
@@ -44,7 +45,7 @@ const DASHBOARD_HEADERS = [
 const ANALYTICS_CARD_HEADERS = [
   { title: "ONU Count", icon: IconRouter, value: "5" },
   {
-    title: "Pending IOF",
+    title: "pending IOF",
     icon: IconListDetails,
     value: "1",
   },

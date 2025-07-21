@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from "react";
-import { Table, Group, Text, Paper, keys } from "@mantine/core";
+import { Table, Group, Text, Paper, Pill, keys } from "@mantine/core";
 import TableLayout from "./TableLayout";
+import StatusChip from "../chips/StatusChip";
 
 /**
  * this function creates a 2D array that contains all table data.
@@ -42,10 +43,17 @@ export default function DefaultTable({
   const rows = useMemo(() => {
     return chunkedData.map((page) => {
       return page.map((row, rowIndex) => (
-        <Table.Tr key={`row-${row[itemKeys[0]] ?? rowIndex}`}>
-          {itemKeys.map((key) => (
-            <Table.Td key={`cell-${key}`}>{row[key]}</Table.Td>
-          ))}
+        <Table.Tr key={`row-${row[itemKeys[0]] ?? rowIndex}-${rowIndex}`}>
+          {itemKeys.map((key) => {
+            if (key === "status") {
+              return (
+                <Table.Td key={`cell-${key}`}>
+                  <StatusChip status={row[key]} />
+                </Table.Td>
+              );
+            }
+            return <Table.Td key={`cell-${key}`}>{row[key]}</Table.Td>;
+          })}
         </Table.Tr>
       ));
     });

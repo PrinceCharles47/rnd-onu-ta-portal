@@ -1,0 +1,7 @@
+.collapseTrigger {
+  border-radius: var(--mantine-radius-lg) var(--mantine-radius-lg) 0 0;
+
+  @mixin hover {
+    background-color: var(--mantine-color-gray-0);
+  }
+}

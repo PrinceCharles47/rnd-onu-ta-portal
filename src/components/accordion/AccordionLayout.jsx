@@ -30,7 +30,7 @@ function AccordionLabel({ label, description, pill }) {
     <Group mr="md" justify="space-between">
       <Stack gap={0}>
         <Text fw={500}>{label}</Text>
-        {description && <Text fz="sm">{description}</Text>}
+        {description && <Text fz="sm" c="dimmed">{description}</Text>}
       </Stack>
 
       {pill && pill}
