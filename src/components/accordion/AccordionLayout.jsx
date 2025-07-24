@@ -1,7 +1,7 @@
-import { Stack, Text, Accordion, Group } from "@mantine/core";
+import { Stack, Text, Accordion, Group, Box } from "@mantine/core";
 import { useMemo } from "react";
 
-export default function AccordionLayout({ items }) {
+export default function AccordionLayout({ items, props }) {
   const accordionItems = useMemo(() => {
     return items.map((item) => (
       <Accordion.Item value={item.label} key={item.label}>
@@ -19,6 +19,7 @@ export default function AccordionLayout({ items }) {
       variant="contained"
       chevronPosition="right"
       radius="lg"
+      {...props}
     >
       {accordionItems}
     </Accordion>
@@ -30,7 +31,13 @@ function AccordionLabel({ label, description, pill }) {
     <Group mr="md" justify="space-between">
       <Stack gap={0}>
         <Text fw={500}>{label}</Text>
-        {description && <Text fz="sm" c="dimmed">{description}</Text>}
+        {typeof description === "string" ? (
+          <Text fz="sm" c="dimmed">
+            {description}
+          </Text>
+        ) : (
+          <Box>{description}</Box>
+        )}
       </Stack>
 
       {pill && pill}

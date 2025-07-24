@@ -23,8 +23,8 @@ import {
   Text,
   TextInput,
   UnstyledButton,
-  Paper,
   Pagination,
+  Divider,
 } from "@mantine/core";
 import classes from "./Table.module.css";
 
@@ -33,7 +33,6 @@ import { useTableControls } from "../../hooks/useTableControls";
 export default function TableLayout({
   data,
   rows,
-  label,
   headers,
   paginationLimit,
   handleSortedData,
@@ -53,7 +52,20 @@ export default function TableLayout({
   const { totalPages, message } = getPaginationDetails(paginationLimit);
 
   const tableHeaders = useMemo(() => {
-    return headers.map((header) => {
+    /*
+    renders the table headers.
+    'headers' prop accepts two values. either an array of objects or react/dom elements.
+    if the value is a react/dom element, the headers will simply get returned and rendered.
+    if an array of objects, this function will loop through the headers and create a header component on each object.
+
+    COMMENT: just some added complexity for the sake of reusability. is it really worth it (-_-) - pchrls
+    */
+    if (!Array.isArray(headers)) {
+      const THeaders = headers;
+      return <THeaders />;
+    }
+
+    const th = headers.map((header) => {
       const props = {
         withSortIcon: header.withSort,
         reversed: reverseSortDirection,
@@ -70,6 +82,8 @@ export default function TableLayout({
         </Th>
       );
     });
+
+    return <Table.Tr>{th}</Table.Tr>;
   }, [sortBy, reverseSortDirection]);
 
   return (
@@ -86,14 +100,8 @@ export default function TableLayout({
       )}
 
       <ScrollArea>
-        <Table
-          horizontalSpacing="md"
-          verticalSpacing="sm"
-          miw={800}
-        >
-          <Table.Tbody>
-            <Table.Tr>{tableHeaders}</Table.Tr>
-          </Table.Tbody>
+        <Table verticalSpacing="sm" miw={900}>
+          <Table.Tbody>{tableHeaders}</Table.Tbody>
           <Table.Tbody>
             {rows.length > 0 ? (
               rows[page - 1]
@@ -111,7 +119,7 @@ export default function TableLayout({
       </ScrollArea>
 
       <Group mt="md" justify="flex-end">
-        <Text size="sm">{message}</Text>
+        <Text size="xs">{message}</Text>
         <Pagination
           total={totalPages}
           value={page}

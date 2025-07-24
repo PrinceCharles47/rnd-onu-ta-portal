@@ -4,7 +4,7 @@ import classes from "./Wrappers.module.css";
 
 export default function PageWrapper({ children, header, props }) {
   return (
-    <Container className={classes.pageWrapper} {...props}>
+    <Container fluid className={classes.pageWrapper} {...props}>
       <PageHeader {...header} />
       <Container size="xl" mt="-50px">
         {children}

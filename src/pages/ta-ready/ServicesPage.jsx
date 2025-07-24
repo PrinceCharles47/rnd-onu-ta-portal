@@ -1,15 +1,16 @@
-import { Button, Container, Pill, Paper } from "@mantine/core";
+import { Button, Paper, keys, Text } from "@mantine/core";
 
 import PageWrapper from "../../components/wrappers/PageWrapper";
-import PageHeader from "../../components/headers/PageHeader";
 import DefaultTable from "../../components/tables/DefaultTable";
 import TableRowAction from "../../components/buttons/TableRowAction";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
 import StatusChip from "../../components/chips/StatusChip";
+import GenericBtn from "../../components/buttons/GenericBtn";
 
 import { useCallback, useMemo } from "react";
 import { useNavigate, useParams } from "react-router";
-import { OLT_HEADERS, SERVICES_HEADERS } from "../../utils/headers";
+import { OLT_HEADERS } from "../../utils/headers";
+import { SERVICES } from "../../utils/staticTestData";
 
 const pageHeader = {
   title: "Testing for F611C (WiFi 6)",
@@ -17,36 +18,8 @@ const pageHeader = {
 
 const tableTitle = {
   title: "Huawei ONU F611C",
-  subtitle: "Please select the test plan you wish to start.",
+  subtitle: "Click on each OLT to view the list of test cases.",
 };
-
-const tableData = [
-  {
-    olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
-    bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-    status: "ongoing",
-  },
-  {
-    olt: "ZTE C650 (NOKIA-TLAB00)",
-    bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-    status: "ongoing",
-  },
-  {
-    olt: "ZTE C320 (NOKIA-TLAB00)",
-    bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-    status: "ongoing",
-  },
-  {
-    olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
-    bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-    status: "ongoing",
-  },
-  {
-    olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
-    bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-    status: "ongoing",
-  },
-];
 
 export default function ServicesPage({}) {
   const navigate = useNavigate();
@@ -57,54 +30,64 @@ export default function ServicesPage({}) {
   };
 
   const getTableItems = useCallback(
-    (redirectPath) => {
-      return tableData.map((data) => {
+    (service, redirectPath) => {
+      const serviceData = SERVICES[service.toLowerCase()];
+      if (!serviceData) return [];
+      return serviceData.olt.map((data) => {
         return {
           ...data,
           action: (
-            <TableRowAction disableView>
-              <ViewBtn
-                onClick={() => redirect(`${redirectPath}/${data.olt}`)}
-              />
-            </TableRowAction>
+            <TableRowAction
+              onView={() => redirect(`${redirectPath}/${data.olt}`)}
+            />
           ),
         };
       });
     },
-    [tableData]
+    [SERVICES]
   );
 
   const accordionItems = useMemo(() => {
-    return SERVICES_HEADERS.map((item) => {
+    return keys(SERVICES).map((key) => {
+      const { service, description, status } = SERVICES[key];
       return {
-        ...item,
+        label: service,
+        description,
+        status,
         panel: (
-          <DefaultTable
-            items={getTableItems(`/${onuId}/${item.label}`)}
-            headers={OLT_HEADERS}
-            title={tableTitle.title}
-            subtitle={tableTitle.subtitle}
-            disableSearch
+          <ServicePanel
+            items={getTableItems(SERVICES[key].service, `/${onuId}/${service}`)}
+            action={
+              <GenericBtn
+                label="Go to docs"
+                onClick={() => redirect(`/${service}/${onuId}`)}
+              />
+            }
           />
         ),
-        pill: <StatusChip status={item.status} />,
+        pill: <StatusChip status={status} />,
       };
     });
-  }, [tableData]);
+  }, [SERVICES]);
 
   return (
     <PageWrapper header={pageHeader}>
-      <Paper mx="md" radius="lg">
+      <Paper radius="lg">
         <AccordionLayout items={accordionItems} />
       </Paper>
     </PageWrapper>
   );
 }
 
-function ViewBtn({ onClick }) {
+function ServicePanel({ items, action }) {
   return (
-    <Button w={75} size="xs" radius="md" onClick={onClick}>
-      View
-    </Button>
+    <DefaultTable
+      items={items}
+      subtitle={tableTitle.subtitle}
+      headers={OLT_HEADERS}
+      disableSearch
+      props={{ withBorder: false }}
+      action={action}
+    />
   );
 }

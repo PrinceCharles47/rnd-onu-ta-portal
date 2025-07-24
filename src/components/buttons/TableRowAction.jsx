@@ -12,6 +12,7 @@ export default function TableRowAction({
       {!disableView && (
         <ActionIcon
           variant="light"
+          size={30}
           onClick={onView}
           radius="md"
           aria-label="View ONU details"

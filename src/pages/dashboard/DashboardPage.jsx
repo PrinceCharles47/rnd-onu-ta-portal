@@ -95,7 +95,7 @@ const tableData = [
 export default function DashboardPage({}) {
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
-  const user = { role: "rnd" };
+  const user = { role: "vendor" };
 
   const redirect = (path) => {
     return navigate(path);
@@ -104,24 +104,48 @@ export default function DashboardPage({}) {
   // returns the actions (buttons) of a row based on status field.
   const getActions = (status, onuId = "") => {
     const userAction = {
-      rnd: (
-        <TableRowAction>
-          <ViewIOFRequest onClick={() => redirect(`/pending-iof/${onuId}`)} />
-        </TableRowAction>
-      ),
-      vendor: (
-        <TableRowAction>
-          <StartONUTestBtn onClick={() => redirect(`/data-plan/${onuId}`)} />
-        </TableRowAction>
-      ),
+      rnd: {
+        pendingIOF: (
+          <TableRowAction>
+            <ViewIOFRequest onClick={() => redirect(`/pending-iof/${onuId}`)} />
+          </TableRowAction>
+        ),
+      },
+      vendor: {
+        readyForTA: (
+          <TableRowAction>
+            <StartONUTestBtn onClick={() => redirect(`/services/${onuId}`)} />
+          </TableRowAction>
+        ),
+        ongoingTA: (
+          <TableRowAction>
+            <ContinueONUTestBtn
+              onClick={() => redirect(`/services/${onuId}`)}
+            />
+          </TableRowAction>
+        ),
+      },
     };
     const actions = {
       pendingIOF:
-        user.role === "rnd" ? userAction[user.role] : <TableRowAction />,
+        user.role === "rnd" ? (
+          userAction[user.role].pendingIOF
+        ) : (
+          <TableRowAction />
+        ),
       readyForTA:
-        user.role === "vendor" ? userAction[user.role] : <TableRowAction />,
-      ongoingTA: <TableRowAction />,
-      completed: <TableRowAction />,
+        user.role === "vendor" ? (
+          userAction[user.role].readyForTA
+        ) : (
+          <TableRowAction />
+        ),
+      ongoingTA:
+        user.role === "vendor" ? (
+          userAction[user.role].ongoingTA
+        ) : (
+          <TableRowAction />
+        ),
+      complete: <TableRowAction />,
     };
 
     return actions[status];
@@ -140,7 +164,7 @@ export default function DashboardPage({}) {
 
   return (
     <PageWrapper header={pageHeader}>
-      <Stack px="md">
+      <Stack>
         <div>
           <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>
             {ANALYTICS_CARD_HEADERS.map((item) => (
@@ -180,6 +204,14 @@ function StartONUTestBtn({ onClick = () => {} }) {
   return (
     <Button w={125} size="xs" radius="md" onClick={onClick}>
       Start Test
+    </Button>
+  );
+}
+
+function ContinueONUTestBtn({ onClick = () => {} }) {
+  return (
+    <Button w={125} size="xs" color="yellow" radius="md" onClick={onClick}>
+      Continue Test
     </Button>
   );
 }

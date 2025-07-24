@@ -1,4 +1,4 @@
-export const TEST_CASES = [
+const TEST_CASES_RAW = [
   {
     label: "Manual Provisioning via CLI",
     status: "ongoing",
@@ -70,6 +70,7 @@ export const TEST_CASES = [
   {
     label: "Change Package via UMP",
     status: "ongoing",
+    required: false,
     subtests: [
       {
         label: "ONU WAN Status (Upload Screenshot)",
@@ -351,3 +352,144 @@ export const TEST_CASES = [
     ],
   },
 ];
+
+export const TEST_CASES = TEST_CASES_RAW.map((test) => {
+  const subtests = test.subtests.map((subtest) => {
+    subtest.id = Math.floor(Math.random() * 10000);
+    return subtest;
+  });
+
+  test.subtests = subtests;
+  return test;
+});
+
+export const SERVICES = {
+  fttx: {
+    service: "FTTX",
+    description: "FiberX",
+    status: "ongoing",
+    olt: [
+      {
+        olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "ZTE C650 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "ZTE C320 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+    ],
+  },
+  cielo: {
+    service: "Cielo",
+    description: "SkyCable",
+    status: "ongoing",
+    olt: [
+      {
+        olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "ZTE C650 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "ZTE C320 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "ongoing",
+      },
+    ],
+  },
+  fast: {
+    service: "FAST",
+    description: "",
+    status: "complete",
+    olt: [
+      {
+        olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "ZTE C650 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "ZTE C320 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+    ],
+  },
+  ibiz: {
+    service: "IBIZ",
+    description: "",
+    status: "complete",
+    olt: [
+      {
+        olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "ZTE C650 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "ZTE C320 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+      {
+        olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        status: "complete",
+      },
+    ],
+  },
+};

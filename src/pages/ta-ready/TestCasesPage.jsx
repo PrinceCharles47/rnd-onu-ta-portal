@@ -1,25 +1,22 @@
-import { Button, Container, Pill, Paper } from "@mantine/core";
+import { Button, Paper } from "@mantine/core";
 
 import PageWrapper from "../../components/wrappers/PageWrapper";
-import PageHeader from "../../components/headers/PageHeader";
 import DefaultTable from "../../components/tables/DefaultTable";
-import TableRowAction from "../../components/buttons/TableRowAction";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
 import StatusChip from "../../components/chips/StatusChip";
 
 import { useCallback, useMemo } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate } from "react-router";
 import { TEST_CASES } from "../../utils/staticTestData";
+import {
+  findTestRequisite,
+  withCompleteStatus,
+} from "../../utils/testCaseHelpers";
 
 const pageHeader = {
   title: "Testing for F611C",
   subtitle:
     "RDTA-20250127-Huawei ONU WiFi 6 F611C for FTTX via Nokia OLT & ZTE BRAS",
-};
-
-const tableTitle = {
-  title: "Huawei ONU F611C",
-  subtitle: "Please select the test plan you wish to start.",
 };
 
 const tableHeaders = [
@@ -61,84 +58,65 @@ export default function TestCasesPage({}) {
   const getTableData = useCallback(
     (redirectPath, parentTestCase) => {
       let requisite = {};
-      const parentTestCaseData = TEST_CASES.find(
-        (data) => parentTestCase === data.label
-      );
-
-      if (parentTestCaseData.required) {
-        const index = TEST_CASES.indexOf(parentTestCaseData);
-        const testCase = TEST_CASES.slice(0, index)
-          .reverse()
-          .find((t) => t.required);
-
-        requisite = testCase ? testCase : {};
+      if (parentTestCase.required) {
+        requisite = findTestRequisite(TEST_CASES, parentTestCase);
       }
 
       const subtests = getTableItems(
         redirectPath,
-        parentTestCaseData,
+        parentTestCase.subtests,
         requisite
       );
 
       return {
-        subtitle: requisite.label ? `Pre-requisite: ${requisite.label}` : null,
+        subtitle: requisite?.label && `Pre-requisite: ${requisite.label}`,
         items: subtests,
         headers: tableHeaders,
         disableSearch: true,
+        props: { withBorder: false },
       };
     },
     [tableData]
   );
 
   // table row data (subtests)
-  const getTableItems = useCallback(
-    (redirectPath, accordionItem, itemRequisite) => {
-      const { subtests } = accordionItem;
-      const isParentRequisiteIncomplete =
-        itemRequisite.status && itemRequisite.status !== "complete";
+  const getTableItems = useCallback((redirectPath, subtests, itemRequisite) => {
+    // for the requisite of the first parent test case, it is empty
+    const isParentRequisiteIncomplete =
+      itemRequisite && !withCompleteStatus(itemRequisite.status);
 
-      return subtests.map((subtest, index) => {
-        let subtestRequisite = "None";
-        let proceedBtnDisabled = false;
+    return subtests.map((subtest) => {
+      let subtestRequisite = "None";
+      let proceedBtnDisabled = false;
 
-        if (isParentRequisiteIncomplete) {
-          proceedBtnDisabled = true;
-        } else if (subtest.required) {
-          const unmetRequired = subtests
-            .slice(0, index)
-            .reverse()
-            .find((s) => s.required && s.status !== "complete");
+      if (isParentRequisiteIncomplete) {
+        proceedBtnDisabled = true;
+      } else if (subtest.required) {
+        const unmetRequired = findTestRequisite(subtests, subtest);
+        subtestRequisite = unmetRequired?.label || "None";
+        proceedBtnDisabled = !withCompleteStatus(unmetRequired?.status);
+      }
 
-          if (unmetRequired) {
-            subtestRequisite = unmetRequired.label;
-            proceedBtnDisabled = true;
-          }
-        }
-
-        return {
-          label: subtest.label,
-          requisite: subtestRequisite,
-          status: subtest.status,
-          action: (
-            <TableRowAction disableView>
-              <ProceedBtn
-                disabled={proceedBtnDisabled}
-                onClick={() => redirect(redirectPath)}
-              />
-            </TableRowAction>
-          ),
-        };
-      });
-    },
-    []
-  );
+      return {
+        label: subtest.label,
+        requisite: subtestRequisite,
+        status: subtest.status,
+        action: (
+          <ProceedBtn
+            disabled={proceedBtnDisabled}
+            onClick={() => redirect(redirectPath)}
+          />
+        ),
+      };
+    });
+  }, []);
 
   const accordionItems = useMemo(() => {
     return TEST_CASES.map((item) => {
       return {
         ...item,
         description: `${item.subtests?.length} subtest cases`,
-        panel: <DefaultTable {...getTableData(`/`, item.label)} />,
+        panel: <DefaultTable {...getTableData(`/`, item)} />,
         pill: <StatusChip status={item.status} />,
       };
     });
@@ -146,24 +124,10 @@ export default function TestCasesPage({}) {
 
   return (
     <PageWrapper header={pageHeader}>
-      <Paper mx="md" radius="lg">
+      <Paper radius="lg">
         <AccordionLayout items={accordionItems} />
       </Paper>
     </PageWrapper>
-  );
-}
-
-function AccordionPill({ label }) {
-  return (
-    <Pill
-      style={{
-        backgroundColor: "var(--mantine-color-blue-5)",
-        fontWeight: 700,
-        color: "white",
-      }}
-    >
-      {label.toUpperCase()}
-    </Pill>
   );
 }
 

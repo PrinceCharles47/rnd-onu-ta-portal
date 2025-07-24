@@ -26,6 +26,7 @@ export default function DefaultTable({
   title,
   subtitle,
   disableSearch = false,
+  props,
 }) {
   const [sortedData, setSortedData] = useState(items);
   const [chunkedData, setChunkedData] = useState([]);
@@ -60,11 +61,11 @@ export default function DefaultTable({
   }, [chunkedData, itemKeys]);
 
   return (
-    <Paper withBorder p="md" radius="lg">
+    <Paper withBorder p="md" radius="lg" {...props}>
       <Group justify="space-between" mb="md">
         <div>
           <Text fw={500}>{title}</Text>
-          <Text fz="sm" c="dimmed">
+          <Text visibleFrom="md" fz="sm" c="dimmed">
             {subtitle}
           </Text>
         </div>

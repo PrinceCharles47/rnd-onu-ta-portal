@@ -14,7 +14,7 @@ export default function PageHeader({ title, subtitle }) {
   return (
     <div className={headerTheme.bgTheme}>
       <Container size="xl">
-        <Box px="md">
+        <Box>
           <Text fz="xl" fw={700} c={headerTheme.textColor}>
             {title}
           </Text>

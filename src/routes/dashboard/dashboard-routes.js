@@ -3,6 +3,7 @@ import DashboardPage from "../../pages/dashboard/DashboardPage";
 import ServicesPage from "../../pages/ta-ready/ServicesPage";
 import TestCasesPage from "../../pages/ta-ready/TestCasesPage";
 import IOFRequestPage from "../../pages/iof-request/IOFRequestPage";
+import TestDocumentsPage from "../../pages/documents/TestDocumentsPage";
 
 export const dashboardRoutes = {
   path: "/",
@@ -15,7 +16,7 @@ export const dashboardRoutes = {
           Component: DashboardPage,
         },
         {
-          path: "data-plan/:id",
+          path: "services/:id",
           Component: ServicesPage,
         },
         {
@@ -25,6 +26,10 @@ export const dashboardRoutes = {
         {
           path: "pending-iof/:id",
           Component: IOFRequestPage,
+        },
+        {
+          path: "documents/:service",
+          Component: TestDocumentsPage,
         },
       ],
     },

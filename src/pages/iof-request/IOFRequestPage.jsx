@@ -5,26 +5,18 @@ import {
   Group,
   Stack,
   Divider,
-  Collapse,
+  Button,
 } from "@mantine/core";
-
-import { IconChevronUp, IconChevronDown } from "@tabler/icons-react";
 
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import StatusChip from "../../components/chips/StatusChip";
+import AccordionLayout from "../../components/accordion/AccordionLayout";
+import SelectTable from "../../components/tables/SelectTable";
 
-import { useDisclosure } from "@mantine/hooks";
-import classes from "../../styles/IOFRequest.module.css";
+import { TEST_CASES } from "../../utils/staticTestData";
 
 const pageHeader = {
   title: "IOF request for F611C (WiFi 6)",
-};
-
-const icon = (state) => {
-  if (state === "up") {
-    return <IconChevronUp size={15} />;
-  }
-  return <IconChevronDown size={15} />;
 };
 
 const onuDetails = {
@@ -51,28 +43,49 @@ const onuDetails = {
   ],
 };
 
-export default function IOFRequestPage({}) {
-  const [opened, { toggle }] = useDisclosure();
+const onuDetailsAccordionItem = {
+  label: onuDetails.name,
+  description: <StatusChip status={onuDetails.status} />,
+  panel: <ONUDetails items={onuDetails.details} />,
+};
 
+const testCaseAccordionItems = TEST_CASES.map((item) => {
+  return {
+    label: item.label,
+    description: `${item.subtests.length} subtest cases`,
+    panel: <SelectTable items={item.subtests} />,
+  };
+});
+
+export default function IOFRequestPage({}) {
   return (
     <PageWrapper header={pageHeader}>
-      <Paper withBorder mx="md" radius="lg">
-        <Paper p="md" onClick={toggle} className={classes.collapseTrigger}>
-          <Group justify="space-between">
-            <Stack gap="5px">
-              <Text fw={500}>{onuDetails.name}</Text>
-              <StatusChip status={onuDetails.status} />
-            </Stack>
-            {icon(opened ? "up" : "down")}
-          </Group>
-        </Paper>
+      <Paper radius="lg">
+        <Stack>
+          <AccordionLayout
+            items={[onuDetailsAccordionItem]}
+            props={{ defaultValue: {} }}
+          />
 
-        <Paper mx="md" mb="md">
-          <Collapse in={opened}>
-            <Divider mb="md" />
-            <ONUDetails items={onuDetails.details} />
-          </Collapse>
-        </Paper>
+          <Group px="md" mt="lg" justify="space-between">
+            <div>
+              <Text fw={500}>Assign test cases for the selected ONU.</Text>
+              <Text fz="sm" c="dimmed">
+                Click on each test case to reveal subtest cases.
+              </Text>
+            </div>
+
+            <Group>
+              <Button radius="md" variant="outline">Assign all</Button>
+              <Button radius="md">Submit</Button>
+            </Group>
+          </Group>
+
+          <AccordionLayout
+            items={testCaseAccordionItems}
+            props={{ defaultValue: {} }}
+          />
+        </Stack>
       </Paper>
     </PageWrapper>
   );
@@ -80,15 +93,18 @@ export default function IOFRequestPage({}) {
 
 function ONUDetails({ items }) {
   return (
-    <SimpleGrid cols={{ base: 1, sm: 2 }}>
-      {items.map((item) => (
-        <Group key={item.label}>
-          <Text fw={500} c="dimmed">
-            {item.label}:
-          </Text>
-          <Text>{item.value}</Text>
-        </Group>
-      ))}
-    </SimpleGrid>
+    <>
+      <Divider mb="md" />
+      <SimpleGrid cols={{ base: 1, sm: 2 }}>
+        {items.map((item) => (
+          <Group key={item.label}>
+            <Text fw={500} fz="sm" c="dimmed">
+              {item.label}:
+            </Text>
+            <Text fz="sm">{item.value}</Text>
+          </Group>
+        ))}
+      </SimpleGrid>
+    </>
   );
 }

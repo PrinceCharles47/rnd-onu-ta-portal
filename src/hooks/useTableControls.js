@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { sortData } from "../utils/tableUtils";
+import { sortData } from "../utils/tableHelpers";
 
 export const useTableControls = ({ data, handleSortedData }) => {    
   const [search, setSearch] = useState("");
