@@ -431,32 +431,47 @@ export const SERVICES = {
   fast: {
     service: "FAST",
     description: "",
-    status: "complete",
+    status: "ongoing",
     olt: [
       {
         olt: "Nokia ISAM FX-4 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
         status: "complete",
+        document: {
+          status: "forRequest",
+        },
       },
       {
         olt: "ZTE C650 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-        status: "complete",
+        status: "forApproval",
+        document: {
+          status: "pendingRequest",
+        },
       },
       {
         olt: "ZTE C320 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-        status: "complete",
+        status: "ongoing",
+        document: {
+          status: "unavailable",
+        },
       },
       {
         olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
         status: "complete",
+        document: {
+          status: "forApproval",
+        },
       },
       {
         olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-        status: "complete",
+        status: "typeApproved",
+        document: {
+          status: "available",
+        },
       },
     ],
   },

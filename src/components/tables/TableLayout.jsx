@@ -100,7 +100,7 @@ export default function TableLayout({
       )}
 
       <ScrollArea>
-        <Table verticalSpacing="sm" miw={900}>
+        <Table horizontalSpacing="md" verticalSpacing="sm" miw={900}>
           <Table.Tbody>{tableHeaders}</Table.Tbody>
           <Table.Tbody>
             {rows.length > 0 ? (
@@ -139,8 +139,8 @@ function Th({ children, reversed, sorted, withSortIcon, onSort = () => {} }) {
     : IconSelector;
   return (
     <Table.Th className={classes.th}>
-      <UnstyledButton onClick={onSort} className={classes.control}>
-        {withSortIcon ? (
+      {withSortIcon ? (
+        <UnstyledButton onClick={onSort} className={classes.control}>
           <Group justify="space-between">
             <Text fw={700} fz="sm">
               {children}
@@ -149,12 +149,12 @@ function Th({ children, reversed, sorted, withSortIcon, onSort = () => {} }) {
               {withSortIcon && <Icon size={16} stroke={1.5} />}
             </Center>
           </Group>
-        ) : (
-          <Text fw={700} fz="sm">
-            {children}
-          </Text>
-        )}
-      </UnstyledButton>
+        </UnstyledButton>
+      ) : (
+        <Text fw={700} fz="sm" pl="xs">
+          {children}
+        </Text>
+      )}
     </Table.Th>
   );
 }

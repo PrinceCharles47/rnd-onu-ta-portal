@@ -2,11 +2,11 @@ import { SimpleGrid, Container, Stack, Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import NewONUForm from "../../components/forms/NewONUForm";
-import PageHeader from "../../components/headers/PageHeader";
 import AnalyticsCard from "../../components/cards/AnalyticsCard";
 import DefaultTable from "../../components/tables/DefaultTable";
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import TableRowAction from "../../components/buttons/TableRowAction";
+import GenericBtn from "../../components/buttons/GenericBtn";
 
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
@@ -95,7 +95,7 @@ const tableData = [
 export default function DashboardPage({}) {
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
-  const user = { role: "vendor" };
+  const user = { role: "rnd" };
 
   const redirect = (path) => {
     return navigate(path);
@@ -107,19 +107,29 @@ export default function DashboardPage({}) {
       rnd: {
         pendingIOF: (
           <TableRowAction>
-            <ViewIOFRequest onClick={() => redirect(`/pending-iof/${onuId}`)} />
+            <GenericBtn
+              label="View request"
+              props={{ w: 125 }}
+              onClick={() => redirect(`/pending-iof/${onuId}`)}
+            />
           </TableRowAction>
         ),
       },
       vendor: {
         readyForTA: (
           <TableRowAction>
-            <StartONUTestBtn onClick={() => redirect(`/services/${onuId}`)} />
+            <GenericBtn
+              label="Start test"
+              props={{ w: 125 }}
+              onClick={() => redirect(`/services/${onuId}`)}
+            />
           </TableRowAction>
         ),
         ongoingTA: (
           <TableRowAction>
-            <ContinueONUTestBtn
+            <GenericBtn
+              label="Continue test"
+              props={{ w: 125, color: "yellow" }}
               onClick={() => redirect(`/services/${onuId}`)}
             />
           </TableRowAction>

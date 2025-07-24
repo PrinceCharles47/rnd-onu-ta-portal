@@ -34,8 +34,11 @@ export default function ServicesPage({}) {
       const serviceData = SERVICES[service.toLowerCase()];
       if (!serviceData) return [];
       return serviceData.olt.map((data) => {
+        const { olt, bras, status } = data;
         return {
-          ...data,
+          olt,
+          bras,
+          status,
           action: (
             <TableRowAction
               onView={() => redirect(`${redirectPath}/${data.olt}`)}
@@ -60,7 +63,7 @@ export default function ServicesPage({}) {
             action={
               <GenericBtn
                 label="Go to docs"
-                onClick={() => redirect(`/${service}/${onuId}`)}
+                onClick={() => redirect(`/documents/${service}`)}
               />
             }
           />

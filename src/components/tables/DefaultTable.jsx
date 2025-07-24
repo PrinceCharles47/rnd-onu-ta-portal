@@ -38,10 +38,11 @@ export default function DefaultTable({
 
   // numeric strings will be returned first in the array followed by strings.
   // the order of string keys is based on the order they appear in the object
-  const itemKeys = keys(items[0]);
+  const itemKeys = items.length > 0 && keys(items[0]);
 
   // 2D array containing the table rows.
   const rows = useMemo(() => {
+    if (itemKeys.length === 0) return [];
     return chunkedData.map((page) => {
       return page.map((row, rowIndex) => (
         <Table.Tr key={`row-${row[itemKeys[0]] ?? rowIndex}-${rowIndex}`}>

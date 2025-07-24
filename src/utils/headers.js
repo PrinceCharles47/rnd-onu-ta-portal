@@ -12,6 +12,13 @@ const OLT_HEADERS = [
   { name: "", withSort: false },
 ];
 
+const OLT_DOCS_HEADERS = [
+  { name: "OLT", withSort: false },
+  { name: "BRAS", withSort: false },
+  { name: "Document Status", withSort: false },
+  { name: "", withSort: false },
+];
+
 const SERVICES_HEADERS = [
   {
     label: "FTTX",
@@ -59,6 +66,7 @@ const ANALYTICS_CARD_HEADERS = [
 
 export {
   OLT_HEADERS,
+  OLT_DOCS_HEADERS,
   SERVICES_HEADERS,
   DASHBOARD_HEADERS,
   ANALYTICS_CARD_HEADERS,
