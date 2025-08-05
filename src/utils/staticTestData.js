@@ -13,37 +13,37 @@ const TEST_CASES_RAW = [
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "NMS WAN (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Status (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -56,13 +56,13 @@ const TEST_CASES_RAW = [
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
     ],
@@ -75,25 +75,25 @@ const TEST_CASES_RAW = [
       {
         label: "ONU WAN Status (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -106,19 +106,19 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -131,37 +131,37 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "ONU WAN Status (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -174,25 +174,25 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "NMS WAN (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -205,37 +205,37 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "NMS WAN (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -248,25 +248,25 @@ const TEST_CASES_RAW = [
       {
         label: "ONU WAN Status (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: false,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -279,31 +279,31 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "NMS WAN (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wireless (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
@@ -316,50 +316,51 @@ const TEST_CASES_RAW = [
       {
         label: "OMCI Activation (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "CLI Config (Automated)",
         type: "checklist",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "NMS WAN (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Status (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "ONU WAN Config (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
       {
         label: "Speedtest Wired (Upload Screenshot)",
         type: "upload",
-        status: "pending",
+        status: "ongoing",
         required: true,
       },
     ],
   },
 ];
 
-export const TEST_CASES = TEST_CASES_RAW.map((test) => {
+export const TEST_CASES = TEST_CASES_RAW.map((test, index) => {
   const subtests = test.subtests.map((subtest) => {
     subtest.id = Math.floor(Math.random() * 10000);
     return subtest;
   });
 
   test.subtests = subtests;
+  test.id = index + 1;
   return test;
 });
 
@@ -446,7 +447,7 @@ export const SERVICES = {
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
         status: "forApproval",
         document: {
-          status: "pendingRequest",
+          status: "pending",
         },
       },
       {
@@ -468,7 +469,7 @@ export const SERVICES = {
       {
         olt: "Huawei MA5800-X2 (NOKIA-TLAB00)",
         bras: "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
-        status: "typeApproved",
+        status: "approved",
         document: {
           status: "available",
         },

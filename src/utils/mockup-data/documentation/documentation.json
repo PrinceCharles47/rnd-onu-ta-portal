@@ -1,0 +1,94 @@
+{
+  "service": {
+    "id": "service-1",
+    "label": "FTTX",
+    "description": "FiberX"
+  },
+  "status": "ongoing",
+  "olts": [
+    {
+      "id": "olt-1",
+      "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "unavailable",
+        "file": {
+          "unsigned": null,
+          "signed": null
+        }
+      }
+    },
+    {
+      "id": "olt-2",
+      "olt": "ZTE C650 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "forRequest",
+        "file": {
+          "unsigned": null,
+          "signed": null
+        }
+      }
+    },
+    {
+      "id": "olt-3",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR700 M8000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "pending",
+        "file": {
+          "unsigned": null,
+          "signed": null
+        }
+      }
+    },
+    {
+      "id": "olt-4",
+      "olt": "Huawei MA5800-X2 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR200 M5000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "forSubmission",
+        "file": {
+          "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+          "signed": null
+        }
+      }
+    },
+    {
+      "id": "olt-5",
+      "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "forApproval",
+        "file": {
+          "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+          "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+        }
+      }
+    },
+    {
+      "id": "olt-6",
+      "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "rejected",
+        "file": {
+          "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+          "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+        }
+      }
+    },
+    {
+      "id": "olt-7",
+      "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+      "document": {
+        "status": "approved",
+        "file": {
+          "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+          "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+        }
+      }
+    }
+  ]
+}

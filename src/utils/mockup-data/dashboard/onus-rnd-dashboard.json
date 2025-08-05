@@ -1,0 +1,32 @@
+{
+  "onuCount": 5,
+  "pendingIOF": 1,
+  "ongoingTA": 3,
+  "completed": 2,
+  "onus": [
+    {
+      "id": "onu-1",
+      "model": "F611A",
+      "vendor": "Huawei",
+      "status": "pendingIOF"
+    },
+    {
+      "id": "onu-2",
+      "model": "F611B",
+      "vendor": "Huawei",
+      "status": "readyForTA"
+    },
+    {
+      "id": "onu-3",
+      "model": "F611C",
+      "vendor": "Nokia",
+      "status": "ongoingTA"
+    },
+    {
+      "id": "onu-4",
+      "model": "F611D",
+      "vendor": "Nokia",
+      "status": "typeApproved"
+    }
+  ]
+}

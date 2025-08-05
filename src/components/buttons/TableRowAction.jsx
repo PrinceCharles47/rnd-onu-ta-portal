@@ -7,7 +7,7 @@ export default function TableRowAction({
   children,
 }) {
   return (
-    <Group gap="xs" justify="end">
+    <Group gap="xs" justify="end" wrap="nowrap">
       {children}
       {!disableView && (
         <ActionIcon

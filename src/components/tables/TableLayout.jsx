@@ -33,6 +33,7 @@ import { useTableControls } from "../../hooks/useTableControls";
 export default function TableLayout({
   data,
   rows,
+  layout,
   headers,
   paginationLimit,
   handleSortedData,
@@ -100,7 +101,12 @@ export default function TableLayout({
       )}
 
       <ScrollArea>
-        <Table horizontalSpacing="md" verticalSpacing="sm" miw={900}>
+        <Table
+          horizontalSpacing="md"
+          verticalSpacing="sm"
+          miw={925}
+          layout={layout}
+        >
           <Table.Tbody>{tableHeaders}</Table.Tbody>
           <Table.Tbody>
             {rows.length > 0 ? (

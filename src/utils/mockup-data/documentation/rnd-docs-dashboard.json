@@ -1,0 +1,68 @@
+{
+  "requests": 10,
+  "provided": 15,
+  "forApproval": 2,
+  "approved": 5,
+  "documents": [
+    {
+      "id": 1,
+      "model": "F611E",
+      "service": "FAST",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "status": "pending",
+      "file": {
+        "unsigned": null,
+        "signed": null
+      }
+    },
+    {
+      "id": 2,
+      "model": "F611E",
+      "service": "FAST",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "status": "provided",
+      "file": {
+        "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+        "signed": null
+      }
+    },
+    {
+      "id": 3,
+      "model": "F611E",
+      "service": "FAST",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "status": "forApproval",
+      "file": {
+        "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+        "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+      }
+    },
+    {
+      "id": 4,
+      "model": "F611E",
+      "service": "FAST",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "status": "rejected",
+      "file": {
+        "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+        "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+      }
+    },
+    {
+      "id": 5,
+      "model": "F611E",
+      "service": "FAST",
+      "olt": "ZTE C320 (NOKIA-TLAB00)",
+      "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+      "status": "approved",
+      "file": {
+        "unsigned": "UNSIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf",
+        "signed": "SIGNED_RDTA-20250127-Huawei_ONU_WiFi_6_F611C_for_FTTX_via_Nokia_OLT_&_ZTE_BRAS.pdf"
+      }
+    }
+  ]
+}

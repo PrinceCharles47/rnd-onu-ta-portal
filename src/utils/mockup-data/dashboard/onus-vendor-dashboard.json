@@ -1,0 +1,36 @@
+{
+  "onuCount": 5,
+  "pendingIOF": 1,
+  "ongoingTA": 3,
+  "completed": 2,
+  "group": {
+    "id": "group-2",
+    "name": "Huawei"
+  },
+  "onus": [
+    {
+      "id": 1,
+      "model": "F611A",
+      "status": "pendingIOF",
+      "assignee": "Prince"
+    },
+    {
+      "id": 2,
+      "model": "F611B",
+      "status": "readyForTA",
+      "assignee": "Charles"
+    },
+    {
+      "id": 3,
+      "model": "F611C",
+      "status": "ongoingTA",
+      "assignee": "Rocher"
+    },
+    {
+      "id": 4,
+      "model": "F611D",
+      "status": "typeApproved",
+      "assignee": "Paige"
+    }
+  ]
+}

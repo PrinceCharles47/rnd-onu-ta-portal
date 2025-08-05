@@ -32,10 +32,11 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     parentLink: "/",
-    // links: [
-    //   { label: "Ongoing TA", link: "/" },
-    //   { label: "Completed TA", link: "/completed-ta" },
-    // ],
+  },
+  {
+    label: "Documents",
+    icon: IconNotes,
+    parentLink: "/documents",
   },
   {
     label: "User",

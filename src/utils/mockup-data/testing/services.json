@@ -1,0 +1,154 @@
+[
+  {
+    "id": "service-1",
+    "service": "FTTX",
+    "description": "FiberX",
+    "status": "ongoing",
+    "olts": [
+      {
+        "id": "olt-1",
+        "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-2",
+        "olt": "ZTE C650 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-3",
+        "olt": "ZTE C320 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR700 M8000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-4",
+        "olt": "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR200 M5000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-5",
+        "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      }
+    ]
+  },
+  {
+    "id": "service-2",
+    "service": "Cielo",
+    "description": "SkyCable",
+    "status": "ongoing",
+    "olts": [
+      {
+        "id": "olt-1",
+        "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "complete"
+      },
+      {
+        "id": "olt-2",
+        "olt": "ZTE C650 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "complete"
+      },
+      {
+        "id": "olt-3",
+        "olt": "ZTE C320 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR700 M8000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-4",
+        "olt": "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR200 M5000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-5",
+        "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      }
+    ]
+  },
+  {
+    "id": "service-3",
+    "service": "FAST",
+    "description": null,
+    "status": "complete",
+    "olts": [
+      {
+        "id": "olt-1",
+        "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "approved"
+      },
+      {
+        "id": "olt-2",
+        "olt": "ZTE C650 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "approved"
+      },
+      {
+        "id": "olt-3",
+        "olt": "ZTE C320 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR700 M8000-S (TLAB-BRAS02)",
+        "status": "approved"
+      },
+      {
+        "id": "olt-4",
+        "olt": "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR200 M5000-S (TLAB-BRAS02)",
+        "status": "approved"
+      },
+      {
+        "id": "olt-5",
+        "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+        "status": "approved"
+      }
+    ]
+  },
+  {
+    "id": "service-4",
+    "service": "IBIZ",
+    "description": null,
+    "status": "ongoing",
+    "olts": [
+      {
+        "id": "olt-1",
+        "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "re-test"
+      },
+      {
+        "id": "olt-2",
+        "olt": "ZTE C650 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      },
+      {
+        "id": "olt-3",
+        "olt": "ZTE C320 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR700 M8000-S (TLAB-BRAS02)",
+        "status": "complete"
+      },
+      {
+        "id": "olt-4",
+        "olt": "Huawei MA5800-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR200 M5000-S (TLAB-BRAS02)",
+        "status": "re-test"
+      },
+      {
+        "id": "olt-5",
+        "olt": "Huawei MA2700-X2 (NOKIA-TLAB00)",
+        "bras": "ZTE ZXR100 M7000-S (TLAB-BRAS02)",
+        "status": "ongoing"
+      }
+    ]
+  }
+]

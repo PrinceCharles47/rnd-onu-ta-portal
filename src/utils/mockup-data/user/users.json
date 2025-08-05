@@ -1,0 +1,24 @@
+[
+  {
+    "id": "user-1",
+    "username": "Prince Clemente",
+    "type": {
+      "group": {
+        "id": "group-1",
+        "name": "Research and Development"
+      },
+      "role": "r&d"
+    }
+  },
+  {
+    "id": "user-2",
+    "username": "Charles Miranda",
+    "type": {
+      "group": {
+        "id": "group-2",
+        "name": "Huawei"
+      },
+      "role": "vendor"
+    }
+  }
+]

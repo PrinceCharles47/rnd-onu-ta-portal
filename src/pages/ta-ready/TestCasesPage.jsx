@@ -1,9 +1,10 @@
-import { Button, Paper } from "@mantine/core";
+import { Button, keys, Paper } from "@mantine/core";
 
 import PageWrapper from "../../components/wrappers/PageWrapper";
 import DefaultTable from "../../components/tables/DefaultTable";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
 import StatusChip from "../../components/chips/StatusChip";
+import GenericBtn from "../../components/buttons/GenericBtn";
 
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";
@@ -12,6 +13,7 @@ import {
   findTestRequisite,
   withCompleteStatus,
 } from "../../utils/testCaseHelpers";
+import TableRowAction from "../../components/buttons/TableRowAction";
 
 const pageHeader = {
   title: "Testing for F611C",
@@ -83,7 +85,7 @@ export default function TestCasesPage({}) {
   const getTableItems = useCallback((redirectPath, subtests, itemRequisite) => {
     // for the requisite of the first parent test case, it is empty
     const isParentRequisiteIncomplete =
-      itemRequisite && !withCompleteStatus(itemRequisite.status);
+      itemRequisite && keys(itemRequisite) > 0 ? !withCompleteStatus(itemRequisite) : false
 
     return subtests.map((subtest) => {
       let subtestRequisite = "None";
@@ -94,7 +96,8 @@ export default function TestCasesPage({}) {
       } else if (subtest.required) {
         const unmetRequired = findTestRequisite(subtests, subtest);
         subtestRequisite = unmetRequired?.label || "None";
-        proceedBtnDisabled = !withCompleteStatus(unmetRequired?.status);
+        proceedBtnDisabled =
+          unmetRequired && !withCompleteStatus(unmetRequired);
       }
 
       return {
@@ -102,10 +105,13 @@ export default function TestCasesPage({}) {
         requisite: subtestRequisite,
         status: subtest.status,
         action: (
-          <ProceedBtn
-            disabled={proceedBtnDisabled}
-            onClick={() => redirect(redirectPath)}
-          />
+          <TableRowAction disableView>
+            <GenericBtn
+              label="Proceed"
+              props={{ disabled: proceedBtnDisabled, w: 90 }}
+              onClick={() => redirect(redirectPath)}
+            />
+          </TableRowAction>
         ),
       };
     });
@@ -128,13 +134,5 @@ export default function TestCasesPage({}) {
         <AccordionLayout items={accordionItems} />
       </Paper>
     </PageWrapper>
-  );
-}
-
-function ProceedBtn({ onClick, disabled = false }) {
-  return (
-    <Button disabled={disabled} w={100} size="xs" radius="md" onClick={onClick}>
-      Proceed
-    </Button>
   );
 }

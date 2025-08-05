@@ -50,21 +50,11 @@ export default function SelectTable({ items, props, children }) {
         className={cx({ [classes.rowSelected]: selected })}
       >
         <Table.Td>
-          <Checkbox
-            checked={selection.includes(item.id)}
-            onChange={() => toggleRow(item.id)}
-          />
-        </Table.Td>
-        <Table.Td>
-          <Checkbox
-            checked={required.includes(item.id)}
-            // disabled={!selection.includes(item.id)}
-            onChange={() => toggleRequired(item.id)}
-            style={{ display: selection.includes(item.id) ? "block" : "none" }}
-          />
-        </Table.Td>
-        <Table.Td>
-          <Group gap="sm">
+          <Group gap="lg">
+            <Checkbox
+              checked={selection.includes(item.id)}
+              onChange={() => toggleRow(item.id)}
+            />
             <Text size="sm" fw={500}>
               {item.label}
             </Text>
@@ -78,25 +68,7 @@ export default function SelectTable({ items, props, children }) {
     <Paper withBorder pb="md" radius="lg" {...props}>
       <Box mb="lg">{children}</Box>
       <ScrollArea>
-        <Table verticalSpacing="sm" miw={800} layout="fixed">
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th style={{ width: 150 }}>
-                <Group>
-                  <Checkbox
-                    onChange={toggleAll}
-                    checked={selection.length === data.length}
-                    indeterminate={
-                      selection.length > 0 && selection.length !== data.length
-                    }
-                  />
-                  Select all
-                </Group>
-              </Table.Th>
-              <Table.Th style={{ width: 150 }}>Required</Table.Th>
-              <Table.Th>Subtest</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
+        <Table verticalSpacing="sm" miw={800}>
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </ScrollArea>

@@ -45,7 +45,7 @@ const tableData = [
   {
     id: "KH0WE7GEE",
     model: "F611E",
-    status: "complete",
+    status: "typeApproved",
     assignee: "Rocher",
   },
   {
@@ -75,7 +75,7 @@ const tableData = [
   {
     id: "KA0W24GEE",
     model: "F611J",
-    status: "complete",
+    status: "typeApproved",
     assignee: "Rocher",
   },
   {
@@ -87,7 +87,7 @@ const tableData = [
   {
     id: "HE0W24GEE",
     model: "F611L",
-    status: "complete",
+    status: "typeApproved",
     assignee: "Rocher",
   },
 ];
@@ -95,7 +95,7 @@ const tableData = [
 export default function DashboardPage({}) {
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
-  const user = { role: "rnd" };
+  const user = { role: "vendor" };
 
   const redirect = (path) => {
     return navigate(path);
@@ -155,7 +155,7 @@ export default function DashboardPage({}) {
         ) : (
           <TableRowAction />
         ),
-      complete: <TableRowAction />,
+      typeApproved: <TableRowAction />,
     };
 
     return actions[status];
@@ -176,7 +176,7 @@ export default function DashboardPage({}) {
     <PageWrapper header={pageHeader}>
       <Stack>
         <div>
-          <SimpleGrid cols={{ base: 1, xs: 2, md: 4 }}>
+          <SimpleGrid cols={{ base: 2, xs: 2, md: 4 }}>
             {ANALYTICS_CARD_HEADERS.map((item) => (
               <AnalyticsCard
                 key={item.title}

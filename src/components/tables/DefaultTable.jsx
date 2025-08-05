@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { Table, Group, Text, Paper, Pill, keys } from "@mantine/core";
+import { Table, Group, Text, Paper, keys } from "@mantine/core";
 import TableLayout from "./TableLayout";
 import StatusChip from "../chips/StatusChip";
 
@@ -26,6 +26,7 @@ export default function DefaultTable({
   title,
   subtitle,
   disableSearch = false,
+  layout,
   props,
 }) {
   const [sortedData, setSortedData] = useState(items);
@@ -33,15 +34,19 @@ export default function DefaultTable({
   const DATA_LIMIT_PER_PAGE = 10;
 
   useEffect(() => {
+    setSortedData(items);
+  }, [items]);
+
+  useEffect(() => {
     setChunkedData(chunkData(DATA_LIMIT_PER_PAGE, sortedData));
   }, [sortedData]);
 
-  // numeric strings will be returned first in the array followed by strings.
-  // the order of string keys is based on the order they appear in the object
-  const itemKeys = items.length > 0 && keys(items[0]);
-
   // 2D array containing the table rows.
   const rows = useMemo(() => {
+    // numeric strings will be returned first in the array followed by strings.
+    // the order of string keys is based on the order they appear in the object
+    const itemKeys = items.length > 0 && keys(items[0]);
+
     if (itemKeys.length === 0) return [];
     return chunkedData.map((page) => {
       return page.map((row, rowIndex) => (
@@ -54,12 +59,16 @@ export default function DefaultTable({
                 </Table.Td>
               );
             }
-            return <Table.Td key={`cell-${key}`}>{row[key]}</Table.Td>;
+            return (
+              <Table.Td key={`cell-${key}`}>
+                <Text fz="xs">{row[key]}</Text>
+              </Table.Td>
+            );
           })}
         </Table.Tr>
       ));
     });
-  }, [chunkedData, itemKeys]);
+  }, [chunkedData, items]);
 
   return (
     <Paper withBorder p="md" radius="lg" {...props}>
@@ -76,6 +85,7 @@ export default function DefaultTable({
         data={items}
         rows={rows}
         headers={headers}
+        layout={layout}
         paginationLimit={DATA_LIMIT_PER_PAGE}
         handleSortedData={setSortedData}
         disableSearch={disableSearch}

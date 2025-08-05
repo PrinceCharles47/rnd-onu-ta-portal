@@ -25,11 +25,13 @@ export function sortData(data, payload) {
   return filterData(
     // sorts the data in ascending/descending order based on the chosen header.
     [...data].sort((a, b) => {
+      const valA = a[sortBy] ?? ""; // fallback to empty string
+      const valB = b[sortBy] ?? "";
       if (payload.reversed) {
-        return b[sortBy].localeCompare(a[sortBy]);
+        return valB[sortBy].localeCompare(valA[sortBy]);
       }
 
-      return a[sortBy].localeCompare(b[sortBy]);
+      return valA[sortBy].localeCompare(valB[sortBy]);
     }),
     payload.search
   );

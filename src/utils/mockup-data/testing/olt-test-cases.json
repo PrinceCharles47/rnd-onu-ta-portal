@@ -1,0 +1,572 @@
+{
+  "service": {
+    "id": "service-1",
+    "label": "FTTX",
+    "description": "FiberX"
+  },
+  "olt": {
+    "id": "olt-1",
+    "olt": "Nokia ISAM FX-4 (NOKIA-TLAB00)",
+    "bras": "ZTE ZXR100 M6000-S (TLAB-BRAS02)",
+    "status": "ongoing"
+  },
+  "testCases": [
+    {
+      "id": "test-case-1",
+      "label": "Manual Provisioning via CLI",
+      "status": "ongoing",
+      "requisite": null,
+      "subtests": [
+        {
+          "id": "subtest-1-1",
+          "label": "OMCI Activation (Automated)",
+          "status": "complete",
+          "required": true,
+          "requisite": null
+        },
+        {
+          "id": "subtest-1-2",
+          "label": "CLI Config (Automated)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-1",
+            "label": "OMCI Activation (Automated)"
+          }
+        },
+        {
+          "id": "subtest-1-3",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-2",
+            "label": "CLI Config (Automated)"
+          }
+        },
+        {
+          "id": "subtest-1-4",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-3",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-5",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-4",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-6",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-5",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-7",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-6",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-2",
+      "label": "Activation via UMP",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-1",
+        "label": "Manual Provisioning via CLI"
+      },
+      "subtests": [
+        {
+          "id": "subtest-2-1",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-2-2",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-2-1",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-2-3",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-2-2",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-3",
+      "label": "Change Package via UMP",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-2",
+        "label": "Activation via UMP"
+      },
+      "subtests": [
+        {
+          "id": "subtest-3-1",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-3-2",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-1",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-3",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-2",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-4",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-3-3",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-5",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-4",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-4",
+      "label": "Suspend and Resume via UMP",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-3",
+        "label": "Change Package via UMP"
+      },
+      "subtests": [
+        {
+          "id": "subtest-1-1",
+          "label": "OMCI Activation (Automated)",
+          "status": "complete",
+          "required": true,
+          "requisite": null
+        },
+        {
+          "id": "subtest-1-2",
+          "label": "CLI Config (Automated)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-1",
+            "label": "OMCI Activation (Automated)"
+          }
+        },
+        {
+          "id": "subtest-1-3",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-2",
+            "label": "CLI Config (Automated)"
+          }
+        },
+        {
+          "id": "subtest-1-4",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-3",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-5",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-1-4",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-6",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-5",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-1-7",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-1-6",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-5",
+      "label": "Reboot ONT and clear BRAS",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-4",
+        "label": "Suspend and Resume via UMP"
+      },
+      "subtests": [
+        {
+          "id": "subtest-2-1",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-2-2",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-2-1",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-2-3",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-2-2",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-6",
+      "label": "Factory Reset ONU",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-5",
+        "label": "Reboot ONT and clear BRAS"
+      },
+      "subtests": [
+        {
+          "id": "subtest-3-1",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-3-2",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-1",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-3",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-2",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-4",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-3-3",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-5",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-4",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-7",
+      "label": "Terminate via UMP",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-6",
+        "label": "Factory Reset ONU"
+      },
+      "subtests": [
+        {
+          "id": "subtest-3-1",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-3-2",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-1",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-3",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-2",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-4",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-3-3",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-5",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-4",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-8",
+      "label": "IPv6 Test",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-7",
+        "label": "Terminate via UMP"
+      },
+      "subtests": [
+        {
+          "id": "subtest-2-1",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-2-2",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-2-1",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-2-3",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-2-2",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-9",
+      "label": "Customer Care View",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-8",
+        "label": "IPv6 Test"
+      },
+      "subtests": [
+        {
+          "id": "subtest-3-1",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-3-2",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-1",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-3",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-2",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-4",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-3-3",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-5",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-4",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    },
+    {
+      "id": "test-case-10",
+      "label": "Activation via JOMOBILE",
+      "status": "ongoing",
+      "requisite": {
+        "id": "test-case-9",
+        "label": "Customer Care View"
+      },
+      "subtests": [
+        {
+          "id": "subtest-3-1",
+          "label": "NMS WAN (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": null
+        },
+        {
+          "id": "subtest-3-2",
+          "label": "ONU WAN Status (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-1",
+            "label": "NMS WAN (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-3",
+          "label": "ONU WAN Config (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-2",
+            "label": "ONU WAN Status (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-4",
+          "label": "Speedtest Wired (Upload Screenshot)",
+          "status": "pending",
+          "required": true,
+          "requisite": {
+            "id": "subtest-3-3",
+            "label": "ONU WAN Config (Upload Screenshot)"
+          }
+        },
+        {
+          "id": "subtest-3-5",
+          "label": "Speedtest Wireless (Upload Screenshot)",
+          "status": "pending",
+          "required": false,
+          "requisite": {
+            "id": "subtest-3-4",
+            "label": "Speedtest Wired (Upload Screenshot)"
+          }
+        }
+      ]
+    }
+  ]
+}

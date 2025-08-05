@@ -3,7 +3,7 @@ import DashboardPage from "../../pages/dashboard/DashboardPage";
 import ServicesPage from "../../pages/ta-ready/ServicesPage";
 import TestCasesPage from "../../pages/ta-ready/TestCasesPage";
 import IOFRequestPage from "../../pages/iof-request/IOFRequestPage";
-import TestDocumentsPage from "../../pages/documents/TestDocumentsPage";
+import DocumentProcessPage from "../../pages/documents/DocumentProcessPage";
 
 export const dashboardRoutes = {
   path: "/",
@@ -29,7 +29,7 @@ export const dashboardRoutes = {
         },
         {
           path: "documents/:service",
-          Component: TestDocumentsPage,
+          Component: DocumentProcessPage,
         },
       ],
     },

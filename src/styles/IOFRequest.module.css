@@ -1,11 +1,3 @@
-.collapseTriggerLight {
-  @mixin hover {
-    background-color: var(--mantine-color-gray-0);
-  }
-}
-
-.collapseTriggerDark {
-  @mixin hover {
-    background-color: var(--mantine-color-dark-6);
-  }
+.rowSelected {
+  background-color: var(--mantine-color-blue-light);
 }
