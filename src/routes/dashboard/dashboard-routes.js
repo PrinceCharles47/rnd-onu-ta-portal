@@ -5,10 +5,14 @@ import TestCasesPage from "../../pages/ta-ready/TestCasesPage";
 import IOFRequestPage from "../../pages/iof-request/IOFRequestPage";
 import DocumentProcessPage from "../../pages/documents/DocumentProcessPage";
 
+// loader functions
+import { requireAuth } from "../../utils/auth";
+
 export const dashboardRoutes = {
   path: "/",
   children: [
     {
+      loader: requireAuth,
       Component: DashboardLayout,
       children: [
         {
