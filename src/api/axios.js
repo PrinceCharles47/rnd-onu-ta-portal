@@ -1,39 +1,49 @@
 import axios from "axios";
+import { tokenService } from "../services/tokenService";
 
-const axiosInstance = axios.create({
-  baseURL: "http://192.168.98.242:8000/api",
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
+const API_BASE_URL = "http://192.168.0.62:8000/api";
+const REFRESH_URL = "/auth/refresh-bearer-token/";
+
+// axiosInstanceDev -> for token-based auth. use this only on development.
+const axiosInstanceDev = axios.create({
+  baseURL: API_BASE_URL,
 });
 
-// response interceptor to handle access token expiration
-axiosInstance.interceptors.response.use(
+// axios instance for refreshing access token. this removes the Authorization header.
+const axiosInstancePrivate = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+axiosInstanceDev.interceptors.request.use((config) => {
+  const token = tokenService.getAccessToken();
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});
+
+axiosInstanceDev.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    console.log("Error response: ", originalRequest.url);
-
-    // if the request fails due to 401 and it hasn't been retried yet
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      !originalRequest.url.includes("/auth/refresh/")
+      !originalRequest.url.includes(REFRESH_URL)
     ) {
       originalRequest._retry = true;
-
-      console.log(originalRequest);
-
       try {
-        await axiosInstance.post("/auth/refresh/"); // call refresh endpoint
+        // if request fails with status 401 (unauthorized), refresh the access token using the axiosIntancePrivate.
+        const res = await axiosInstancePrivate.post(REFRESH_URL, {
+          refreshToken: tokenService.getRefreshToken(),
+        });
 
-        // retry the original request after refresh
-        return axiosInstance(originalRequest);
+        tokenService.setAccessToken(res.data.accessToken);
+        return axiosInstanceDev(originalRequest); // retry the failed request.
       } catch (refreshError) {
-        console.error("Refresh token expired. Logging out.");
-        // window.location.href = "/sign-in";
+        tokenService.clear(); // if refresh token is also expired, clear the tokens and redirect the user to login in page.
+        window.location.href = "/sign-in";
         return Promise.reject(refreshError);
       }
     }
@@ -42,4 +52,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export { axiosInstance };
+export { axiosInstanceDev };

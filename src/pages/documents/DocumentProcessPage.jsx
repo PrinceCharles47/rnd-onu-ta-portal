@@ -1,7 +1,7 @@
 import { Paper, Button, FileInput, Group } from "@mantine/core";
 import { IconFileDownload } from "@tabler/icons-react";
 
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import DefaultTable from "../../components/tables/DefaultTable";
 import GenericBtn from "../../components/buttons/GenericBtn";
 import ModalBtn from "../../components/buttons/ModalBtn";
@@ -44,7 +44,7 @@ const tableRows = tableRawData.map((item) => {
 
 export default function DocumentProcessPage({}) {
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Paper radius="lg">
         <DefaultTable
           items={tableRows}
@@ -52,7 +52,7 @@ export default function DocumentProcessPage({}) {
           disableSearch
         />
       </Paper>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 

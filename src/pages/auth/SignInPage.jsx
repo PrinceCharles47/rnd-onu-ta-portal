@@ -7,11 +7,11 @@ import {
   Text,
   TextInput,
   Image,
+  Divider,
   useComputedColorScheme,
 } from "@mantine/core";
 
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "../../hooks/auth/useAuth";
 
 import logoLight from "../../assets/V_ConvergeLogo_Color.png";
 import logoDark from "../../assets/V_ConvergeLogo_White.png";
@@ -19,13 +19,19 @@ import logoDark from "../../assets/V_ConvergeLogo_White.png";
 import classes from "../../styles/Auth.module.css";
 import { isNotEmpty, useForm } from "@mantine/form";
 
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../../providers/AuthProvider";
 import { useNavigate } from "react-router";
 
 export default function SignInPage() {
-  const { auth, setAuth } = useContext(AuthContext);
-  const { login, logout } = useAuth();
+  const {
+    login,
+    logout,
+    loginStatus,
+    logoutStatus,
+    // currentUser,
+    // isLoadingUser,
+  } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -40,28 +46,18 @@ export default function SignInPage() {
     },
   });
 
-  const { mutate } = useMutation({
-    mutationFn: login,
-    onSuccess: (response) => {
-      console.log("Login success", response);
-      setAuth(response);
-      navigate("/");
-    },
-    onError: (err) => {
-      console.error("Login failed", err);
-    },
-  });
-
   const handleLogin = () => {
     const formData = form.getValues();
-    if (formData) {
-      mutate(formData);
-    }
+    formData && login(formData);
   };
 
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
+
+  useEffect(() => {
+    loginStatus === "success" && navigate("/");
+  }, [loginStatus]);
 
   return (
     <div className={classes.signInContainer}>
@@ -76,7 +72,11 @@ export default function SignInPage() {
           </Text>
         </Stack>
 
-        <Text>{JSON.stringify(auth)}</Text>
+        {/* <Text>
+          {isLoadingUser ? "Loading..." : JSON.stringify(currentUser)}
+        </Text> */}
+        <Divider />
+        <Text>{JSON.stringify(loginStatus)}</Text>
 
         <Box mt={50} miw={300}>
           <form onSubmit={form.onSubmit(handleLogin)}>

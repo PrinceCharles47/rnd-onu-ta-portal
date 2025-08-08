@@ -1,6 +1,6 @@
 import { Button, Paper, keys, Text } from "@mantine/core";
 
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import DefaultTable from "../../components/tables/DefaultTable";
 import TableRowAction from "../../components/buttons/TableRowAction";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
@@ -74,11 +74,11 @@ export default function ServicesPage({}) {
   }, [SERVICES]);
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Paper radius="lg">
         <AccordionLayout items={accordionItems} />
       </Paper>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 

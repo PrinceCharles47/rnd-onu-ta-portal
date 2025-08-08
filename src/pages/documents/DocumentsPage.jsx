@@ -16,7 +16,7 @@ import {
 import IconBtn from "../../components/buttons/IconBtn";
 import AnalyticsCard from "../../components/cards/AnalyticsCard";
 import DefaultTable from "../../components/tables/DefaultTable";
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import TableRowAction from "../../components/buttons/TableRowAction";
 import GenericBtn from "../../components/buttons/GenericBtn";
 import ModalBtn from "../../components/buttons/ModalBtn";
@@ -165,7 +165,7 @@ export default function DocumentsPage({}) {
   }, [tableData]);
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Stack>
         <div>
           <SimpleGrid cols={{ base: 2, xs: 2, md: 4 }}>
@@ -187,7 +187,7 @@ export default function DocumentsPage({}) {
           />
         </div>
       </Stack>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 

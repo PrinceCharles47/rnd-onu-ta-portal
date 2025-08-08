@@ -1,6 +1,6 @@
 import { Button, keys, Paper } from "@mantine/core";
 
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import DefaultTable from "../../components/tables/DefaultTable";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
 import StatusChip from "../../components/chips/StatusChip";
@@ -129,10 +129,10 @@ export default function TestCasesPage({}) {
   }, [tableData]);
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Paper radius="lg">
         <AccordionLayout items={accordionItems} />
       </Paper>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }

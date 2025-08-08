@@ -3,7 +3,7 @@ import PageHeader from "../headers/PageHeader";
 import classes from "./Wrappers.module.css";
 import { useUser } from "../../hooks/user/useUser";
 
-export default function PageWrapper({
+export default function ProtectedPageWrapper({
   children,
   header,
   props,

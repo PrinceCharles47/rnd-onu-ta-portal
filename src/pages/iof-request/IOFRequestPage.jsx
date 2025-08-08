@@ -10,7 +10,7 @@ import {
 
 import { IconPlus } from "@tabler/icons-react";
 
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import TestSelectionTable from "../../components/tables/TestSelectionTable";
 import GenericBtn from "../../components/buttons/GenericBtn";
 import ModalBtn from "../../components/buttons/ModalBtn";
@@ -116,7 +116,7 @@ export default function IOFRequestPage() {
   });
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Paper radius="lg">
         <Group mb="md" justify="end">
           <ModalBtn
@@ -133,7 +133,7 @@ export default function IOFRequestPage() {
         </Group>
         <Stack gap="xl">{displayedSelectedCases}</Stack>
       </Paper>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 

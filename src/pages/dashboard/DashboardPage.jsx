@@ -4,7 +4,7 @@ import { useDisclosure } from "@mantine/hooks";
 import NewONUForm from "../../components/forms/NewONUForm";
 import AnalyticsCard from "../../components/cards/AnalyticsCard";
 import DefaultTable from "../../components/tables/DefaultTable";
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import TableRowAction from "../../components/buttons/TableRowAction";
 import GenericBtn from "../../components/buttons/GenericBtn";
 
@@ -173,7 +173,7 @@ export default function DashboardPage({}) {
   }, [tableData]);
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Stack>
         <div>
           <SimpleGrid cols={{ base: 2, xs: 2, md: 4 }}>
@@ -198,7 +198,7 @@ export default function DashboardPage({}) {
       </Stack>
 
       <NewONUForm opened={opened} onClose={close} />
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 

@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { useMemo, useState } from "react";
 
-import PageWrapper from "../../components/wrappers/PageWrapper";
+import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
 import StatusChip from "../../components/chips/StatusChip";
 import AccordionLayout from "../../components/accordion/AccordionLayout";
 import SelectTable from "../../components/tables/SelectTable";
@@ -66,7 +66,7 @@ export default function UsersListPage({}) {
   ));
 
   return (
-    <PageWrapper header={pageHeader}>
+    <ProtectedPageWrapper header={pageHeader}>
       <Paper radius="lg">
         <Stack mb="xl">
           <AccordionLayout
@@ -104,7 +104,7 @@ export default function UsersListPage({}) {
           </Group>
         </Stack>
       </Paper>
-    </PageWrapper>
+    </ProtectedPageWrapper>
   );
 }
 
