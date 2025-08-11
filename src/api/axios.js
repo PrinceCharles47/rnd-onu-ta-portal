@@ -47,20 +47,10 @@ axiosInstanceDev.interceptors.response.use(
         alertBus.showAlert(
           {
             title: "Session expired.",
-            message: "Logging you out shortly.",
+            message: "Log in to create a new session.",
           },
           { color: "red", loading: true }
         );
-
-        // notifications.show({
-        //   color: "red",
-        //   loading: true,
-        //   autoClose: 5000,
-        //   position: "top-right",
-        //   withCloseButton: false,
-        //   title: "Session expired.",
-        //   message: "Logging you out shortly.",
-        // });
 
         setTimeout(() => {
           window.location.href = "/sign-in";
