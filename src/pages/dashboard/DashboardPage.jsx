@@ -95,7 +95,7 @@ const tableData = [
 export default function DashboardPage({}) {
   const [opened, { open, close }] = useDisclosure(false);
   const navigate = useNavigate();
-  const user = { role: "vendor" };
+  const user = { role: "rnd" };
 
   const redirect = (path) => {
     return navigate(path);

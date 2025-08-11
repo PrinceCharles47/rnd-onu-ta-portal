@@ -9,9 +9,8 @@ import {
   Image,
   Divider,
   useComputedColorScheme,
+  Paper,
 } from "@mantine/core";
-
-import { useMutation } from "@tanstack/react-query";
 
 import logoLight from "../../assets/V_ConvergeLogo_Color.png";
 import logoDark from "../../assets/V_ConvergeLogo_White.png";
@@ -19,19 +18,13 @@ import logoDark from "../../assets/V_ConvergeLogo_White.png";
 import classes from "../../styles/Auth.module.css";
 import { isNotEmpty, useForm } from "@mantine/form";
 
-import { useContext, useEffect } from "react";
-import AuthContext from "../../providers/AuthProvider";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 export default function SignInPage() {
-  const {
-    login,
-    logout,
-    loginStatus,
-    logoutStatus,
-    // currentUser,
-    // isLoadingUser,
-  } = useContext(AuthContext);
+  const { logIn, logInStatus } = useAuth();
+
   const navigate = useNavigate();
 
   const form = useForm({
@@ -48,7 +41,7 @@ export default function SignInPage() {
 
   const handleLogin = () => {
     const formData = form.getValues();
-    formData && login(formData);
+    formData && logIn(formData);
   };
 
   const computedColorScheme = useComputedColorScheme("light", {
@@ -56,55 +49,47 @@ export default function SignInPage() {
   });
 
   useEffect(() => {
-    loginStatus === "success" && navigate("/");
-  }, [loginStatus]);
+    logInStatus === "success" && navigate("/");
+  }, [logInStatus]);
 
   return (
     <div className={classes.signInContainer}>
-      <Container size={420} my={40}>
-        <Stack align="center">
-          <Image
-            src={computedColorScheme === "light" ? logoLight : logoDark}
-            maw={200}
-          />
-          <Text ta="center" fw={500} c="dimmed">
-            ONU TYPE APPROVAL PORTAL
-          </Text>
+      <Paper withBorder p="xl" radius="lg">
+        <Stack gap="xl">
+          <Stack align="center">
+            <Image
+              src={computedColorScheme === "light" ? logoLight : logoDark}
+              maw={75}
+            />
+            <Text size="sm" ta="center" fw={700} c="dimmed">
+              ONU TYPE APPROVAL PORTAL
+            </Text>
+          </Stack>
+
+          <Box miw={300}>
+            <form onSubmit={form.onSubmit(handleLogin)}>
+              <TextInput
+                label="Username"
+                placeholder="you@mantine.dev"
+                radius="md"
+                key={form.key("username")}
+                {...form.getInputProps("username")}
+              />
+              <PasswordInput
+                label="Password"
+                placeholder="Your password"
+                mt="md"
+                radius="md"
+                key={form.key("password")}
+                {...form.getInputProps("password")}
+              />
+              <Button fullWidth mt="xl" radius="md" type="submit">
+                Sign in
+              </Button>
+            </form>
+          </Box>
         </Stack>
-
-        {/* <Text>
-          {isLoadingUser ? "Loading..." : JSON.stringify(currentUser)}
-        </Text> */}
-        <Divider />
-        <Text>{JSON.stringify(loginStatus)}</Text>
-
-        <Box mt={50} miw={300}>
-          <form onSubmit={form.onSubmit(handleLogin)}>
-            <TextInput
-              label="Username"
-              placeholder="you@mantine.dev"
-              radius="md"
-              key={form.key("username")}
-              {...form.getInputProps("username")}
-            />
-            <PasswordInput
-              label="Password"
-              placeholder="Your password"
-              mt="md"
-              radius="md"
-              key={form.key("password")}
-              {...form.getInputProps("password")}
-            />
-            <Button fullWidth mt="xl" radius="md" type="submit">
-              Sign in
-            </Button>
-
-            <Button fullWidth mt="xl" radius="md" onClick={logout}>
-              Sign out
-            </Button>
-          </form>
-        </Box>
-      </Container>
+      </Paper>
     </div>
   );
 }

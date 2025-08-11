@@ -10,16 +10,21 @@ const queryKeys = {
 export const useAuth = () => {
   const queryClient = useQueryClient();
 
-  const login = useMutation({
-    mutationFn: authService.login,
+  const logIn = useMutation({
+    mutationFn: authService.logIn,
     onSuccess: async () =>
       queryClient.invalidateQueries([queryKeys.CURRENT_USER]),
   });
 
-  const logout = useMutation({
-    mutationFn: authService.logout,
+  const logOut = useMutation({
+    mutationFn: authService.logOut,
     onSuccess: () => queryClient.invalidateQueries([queryKeys.CURRENT_USER]),
   });
 
-  return { login, logout };
+  return {
+    logIn: logIn.mutate,
+    logOut: logOut.mutate,
+    logInStatus: logIn.status,
+    logOutStatus: logOut.status,
+  };
 };

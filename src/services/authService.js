@@ -9,20 +9,17 @@ const authURLs = {
 };
 
 export const authService = {
-  login: ({ username, password }) =>
+  logIn: ({ username, password }) =>
     axiosInstanceDev
       .post(authURLs.TOKEN_BASED_SIGN_IN, { username, password })
       .then((res) => {
-        console.log(res.data.access);
-
         tokenService.setAccessToken(res.data.access);
         tokenService.setRefreshToken(res.data.refresh);
         return res.data;
       }),
 
-  logout: () =>
+  logOut: () =>
     axiosInstanceDev.post(authURLs.SIGN_OUT).then((res) => {
-      console.log(res)
       tokenService.clear();
     }),
 };

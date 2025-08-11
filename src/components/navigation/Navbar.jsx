@@ -25,6 +25,8 @@ import logoDark from "../../assets/H_ConvergeLogo_White.png";
 import classes from "./Navigation.module.css";
 
 import { useNavigate } from "react-router";
+import { useUser } from "../../hooks/user/useUser";
+import { useAuth } from "../../hooks/auth/useAuth";
 
 const mockdata = [
   {
@@ -58,6 +60,9 @@ const mockdata = [
 ];
 
 export function Navbar() {
+  const { currentUser } = useUser();
+  const { logOut, logOutStatus } = useAuth();
+
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
@@ -66,7 +71,8 @@ export function Navbar() {
     <NavLinksGroup {...item} key={item.label} />
   ));
 
-  const logOut = () => {
+  const handleLogout = () => {
+    logOut();
     navigate("/sign-in");
   };
 
@@ -86,13 +92,13 @@ export function Navbar() {
       </ScrollArea>
 
       <div className={classes.footer}>
-        <UserButton onLogOut={logOut} />
+        <UserButton user={currentUser?.data?.profile} onLogOut={handleLogout} />
       </div>
     </nav>
   );
 }
 
-function UserButton({ onLogOut }) {
+function UserButton({ user, onLogOut }) {
   return (
     <Box className={classes.user}>
       <Group>
@@ -100,11 +106,11 @@ function UserButton({ onLogOut }) {
 
         <div style={{ flex: 1 }}>
           <Text size="sm" fw={500} lineClamp={1}>
-            Prince Charles M. Clemente
+            {user?.username}
           </Text>
 
           <Text c="dimmed" size="xs">
-            Developer
+            {user?.companyName}
           </Text>
         </div>
 

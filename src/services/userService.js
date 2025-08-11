@@ -7,7 +7,6 @@ const userURLs = {
 export const userService = {
   getLoggedInUser: () =>
     axiosInstanceDev.get(userURLs.SIGNED_IN_USER).then((res) => {
-      console.log(res.data);
       return res.data;
     }),
 };

@@ -1,5 +1,9 @@
+import { axiosInstancePrivate } from "../api/axios";
+
 const ACCESS_TOKEN_KEY = "accessToken";
 const REFRESH_TOKEN_KEY = "refreshToken";
+
+const REFRESH_URL = "/auth/refresh-bearer-token/";
 
 export const tokenService = {
   getAccessToken: () => localStorage.getItem(ACCESS_TOKEN_KEY),
@@ -13,5 +17,13 @@ export const tokenService = {
   clear: () => {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
     localStorage.removeItem(REFRESH_TOKEN_KEY);
+  },
+
+  refreshToken: async () => {
+    const res = await axiosInstancePrivate.post(REFRESH_URL, {
+      refreshToken: localStorage.getItem(REFRESH_TOKEN_KEY),
+    });
+
+    return res.data;
   },
 };

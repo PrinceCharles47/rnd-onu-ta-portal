@@ -1,5 +1,6 @@
 import axios from "axios";
 import { tokenService } from "../services/tokenService";
+import { alertBus } from "../utils/alertBus";
 
 const API_BASE_URL = "http://192.168.0.62:8000/api";
 const REFRESH_URL = "/auth/refresh-bearer-token/";
@@ -33,17 +34,38 @@ axiosInstanceDev.interceptors.response.use(
       !originalRequest.url.includes(REFRESH_URL)
     ) {
       originalRequest._retry = true;
+
       try {
         // if request fails with status 401 (unauthorized), refresh the access token using the axiosIntancePrivate.
-        const res = await axiosInstancePrivate.post(REFRESH_URL, {
-          refreshToken: tokenService.getRefreshToken(),
-        });
+        const res = await tokenService.refreshToken();
 
-        tokenService.setAccessToken(res.data.accessToken);
+        tokenService.setAccessToken(res.accessToken);
         return axiosInstanceDev(originalRequest); // retry the failed request.
       } catch (refreshError) {
         tokenService.clear(); // if refresh token is also expired, clear the tokens and redirect the user to login in page.
-        window.location.href = "/sign-in";
+
+        alertBus.showAlert(
+          {
+            title: "Session expired.",
+            message: "Logging you out shortly.",
+          },
+          { color: "red", loading: true }
+        );
+
+        // notifications.show({
+        //   color: "red",
+        //   loading: true,
+        //   autoClose: 5000,
+        //   position: "top-right",
+        //   withCloseButton: false,
+        //   title: "Session expired.",
+        //   message: "Logging you out shortly.",
+        // });
+
+        setTimeout(() => {
+          window.location.href = "/sign-in";
+        }, 5000);
+
         return Promise.reject(refreshError);
       }
     }
@@ -52,4 +74,4 @@ axiosInstanceDev.interceptors.response.use(
   }
 );
 
-export { axiosInstanceDev };
+export { axiosInstanceDev, axiosInstancePrivate };
