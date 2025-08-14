@@ -133,7 +133,7 @@ export default function DocumentsPage({}) {
   const getActions = (status) => {
     const actions = {
       pending: <PendingBtn />,
-      provided: <ReModalBtn />,
+      provided: <ReUploadModalBtn />,
       forApproval: <ForApprovalBtn />,
       approved: <GenericBtn label="Download" onClick={() => {}} />,
     };
@@ -225,7 +225,7 @@ function PendingBtn({}) {
   return (
     <>
       <ModalBtn
-        props={{ w: 95 }}
+        btnProps={{ w: 95 }}
         btnLabel="Upload"
         title="Upload a PDF file of the documentation"
       >
@@ -238,11 +238,11 @@ function PendingBtn({}) {
   );
 }
 
-function ReModalBtn({}) {
+function ReUploadModalBtn({}) {
   return (
     <>
       <ModalBtn
-        props={{ w: 95 }}
+        btnProps={{ w: 95 }}
         btnLabel="Re-upload"
         title="Re-upload a PDF file of the documentation"
       >

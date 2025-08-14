@@ -4,13 +4,13 @@ export default function IconBtn({ tooltip, icon: Icon, onClick, props }) {
   return (
     <Tooltip label={tooltip}>
       <ActionIcon
-        variant="light"
-        size={30}
+        variant="filled"
+        size={36}
         onClick={onClick}
         radius="md"
         {...props}
       >
-        <Icon size={20} stroke={1.5} />
+        <Icon size={20} />
       </ActionIcon>
     </Tooltip>
   );

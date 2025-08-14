@@ -20,12 +20,12 @@ import {
 
 import NavLinksGroup from "./NavLinksGroup";
 
-import logoLight from "../../assets/H_ConvergeLogo_Color.png";
-import logoDark from "../../assets/H_ConvergeLogo_White.png";
+import logoLight from "../../assets/ConvergeLogo_Color.png";
+import logoDark from "../../assets/ConvergeLogo_White.png";
 import classes from "./Navigation.module.css";
 
 import { useNavigate } from "react-router";
-import { useUser } from "../../hooks/user/useUser";
+import { useCurrentUser } from "../../hooks/user/useCurrentUser";
 import { useAuth } from "../../hooks/auth/useAuth";
 
 const mockdata = [
@@ -60,7 +60,7 @@ const mockdata = [
 ];
 
 export function Navbar() {
-  const { currentUser } = useUser();
+  const { currentUser } = useCurrentUser();
   const { logOut, logOutStatus } = useAuth();
 
   const computedColorScheme = useComputedColorScheme("light", {
@@ -78,13 +78,24 @@ export function Navbar() {
 
   return (
     <nav className={classes.navbar}>
-      <div className={classes.header}>
-        <Group justify="center">
-          <Image
-            src={computedColorScheme === "light" ? logoLight : logoDark}
-            maw={175}
-          />
-        </Group>
+      <div className={classes.titleBar}>
+        <Box className={classes.systemTitle}>
+          <Group>
+            <Avatar
+              src={computedColorScheme === "light" ? logoLight : logoDark}
+              size={30}
+            />
+            <div style={{ flex: 1 }}>
+              <Text fz="sm" fw={700} lineClamp={1}>
+                CONVERGE ICT
+              </Text>
+
+              <Text c="dimmed" size="xs">
+                ONU Type Approval Portal
+              </Text>
+            </div>
+          </Group>
+        </Box>
       </div>
 
       <ScrollArea className={classes.links}>
@@ -117,7 +128,7 @@ function UserButton({ user, onLogOut }) {
         {/* menu button */}
         <Menu shadow="md" width={200}>
           <Menu.Target>
-            <ActionIcon variant="subtle" radius="xl" aria-label="Settings">
+            <ActionIcon variant="subtle" radius="md" aria-label="Settings">
               <IconDotsVertical stroke={1.5} />
             </ActionIcon>
           </Menu.Target>
@@ -126,7 +137,7 @@ function UserButton({ user, onLogOut }) {
             <Menu.Item leftSection={<IconSettings size={14} />}>
               Settings
             </Menu.Item>
-            {/* <Menu.Divider /> */}
+            <Menu.Divider />
             <Menu.Item
               color="red"
               leftSection={<IconLogout size={14} />}

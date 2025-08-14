@@ -3,13 +3,13 @@ import PageHeader from "../headers/PageHeader";
 import Loading from "../loader/Loading";
 
 import classes from "./Wrappers.module.css";
-import { useUser } from "../../hooks/user/useUser";
+import { useCurrentUser } from "../../hooks/user/useCurrentUser";
 import { tokenService } from "../../services/tokenService";
 import { useLocation, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
 export default function ProtectedPageWrapper({ children, header, props }) {
-  const { isLoading } = useUser();
+  const { isLoading: loading } = useCurrentUser();
   const navigate = useNavigate();
   const location = useLocation();
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -25,7 +25,7 @@ export default function ProtectedPageWrapper({ children, header, props }) {
     }
   }, [navigate, location]);
 
-  if (checkingAuth || isLoading) {
+  if (checkingAuth || loading) {
     return <Loading loading={true} message={"Checking access..."} />;
   }
 

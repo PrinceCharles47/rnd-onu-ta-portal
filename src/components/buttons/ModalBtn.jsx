@@ -4,17 +4,18 @@ import { useDisclosure } from "@mantine/hooks";
 export default function ModalBtn({
   children,
   btnLabel,
-  title,
+  title = "",
   defaultOpen = false,
-  props
+  btnProps,
+  modalProps
 }) {
   const [opened, { open, close }] = useDisclosure(defaultOpen);
   return (
     <>
-      <Modal size="lg" opened={opened} onClose={close} title={title} centered>
+      <Modal size="lg" opened={opened} onClose={close} title={title} centered {...modalProps}>
         {children}
       </Modal>
-      <Button size="xs" radius="md" onClick={open} {...props}>
+      <Button size="xs" radius="md" onClick={open} {...btnProps}>
         {btnLabel}
       </Button>
     </>

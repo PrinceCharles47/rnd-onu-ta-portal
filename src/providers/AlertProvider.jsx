@@ -9,7 +9,7 @@ export default function AlertProvider({ children }) {
   const showAlert = useCallback((alert, options = {}) => {
     setAlerts((prev) => [...prev, alert]);
     notifications.show({
-      withBorder,
+      withBorder: true,
       autoClose: 5000,
       position: "top-right",
       withCloseButton: false,

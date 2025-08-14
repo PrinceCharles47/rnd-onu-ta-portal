@@ -26,3 +26,27 @@ export const addONUFormFields = [
     formkey: "thirdPartyOLTSupport",
   },
 ];
+
+export const newUserFormFields = [
+  { label: "Username", type: "text", formkey: "username" },
+  { label: "Email", type: "email", formkey: "email" },
+  { label: "Password", type: "text", formkey: "password" },
+  { label: "Confirm Password", type: "text", formkey: "passwordConfirm" },
+  { label: "First Name", type: "text", formkey: "firstName" },
+  { label: "Last Name", type: "text", formkey: "lastName" },
+  { label: "Company Name", type: "text", formkey: "companyName" },
+  { label: "Department", type: "text", formkey: "department" },
+
+  {
+    label: "Role",
+    type: "select",
+    formkey: "roleName",
+    data: ["Vendor", "Research Team"],
+  },
+  {
+    label: "Vendor",
+    type: "select",
+    formkey: "roleName",
+    data: ["Huawei", "Nokia", "ZTE"],
+  },
+];

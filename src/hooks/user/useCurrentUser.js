@@ -6,7 +6,7 @@ const queryKeys = {
   CURRENT_USER: "current_user",
 };
 
-export const useUser = () => {
+export const useCurrentUser = () => {
   const getLoggedInUser = useQuery({
     queryKey: [queryKeys.CURRENT_USER],
     queryFn: userService.getLoggedInUser,
