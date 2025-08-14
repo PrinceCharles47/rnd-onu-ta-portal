@@ -22,7 +22,7 @@ export default function Loading({ loading, message }) {
           }}
         >
           <Stack align="center">
-            <Loader size="md" type="bars" color="teal" />
+            <Loader size="md" type="bars" />
             <Text fw={700} c="dimmed">
               {message}
             </Text>

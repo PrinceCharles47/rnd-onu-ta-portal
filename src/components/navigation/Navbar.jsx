@@ -11,7 +11,6 @@ import {
   ScrollArea,
   Avatar,
   Group,
-  Image,
   Text,
   Menu,
   Box,
@@ -28,7 +27,7 @@ import { useNavigate } from "react-router";
 import { useCurrentUser } from "../../hooks/user/useCurrentUser";
 import { useAuth } from "../../hooks/auth/useAuth";
 
-const mockdata = [
+const navDetails = [
   {
     label: "Dashboard",
     icon: IconNotes,
@@ -61,13 +60,13 @@ const mockdata = [
 
 export function Navbar() {
   const { currentUser } = useCurrentUser();
-  const { logOut, logOutStatus } = useAuth();
+  const { logOut } = useAuth();
 
   const computedColorScheme = useComputedColorScheme("light", {
     getInitialValueInEffect: true,
   });
   const navigate = useNavigate();
-  const links = mockdata.map((item) => (
+  const links = navDetails.map((item) => (
     <NavLinksGroup {...item} key={item.label} />
   ));
 

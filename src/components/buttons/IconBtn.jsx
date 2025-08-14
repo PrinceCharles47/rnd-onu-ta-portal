@@ -5,7 +5,7 @@ export default function IconBtn({ tooltip, icon: Icon, onClick, props }) {
     <Tooltip label={tooltip}>
       <ActionIcon
         variant="filled"
-        size={36}
+        size={40}
         onClick={onClick}
         radius="md"
         {...props}

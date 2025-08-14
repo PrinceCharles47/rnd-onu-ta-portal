@@ -117,7 +117,10 @@ export default function UsersListPage() {
           headers={tableHeaders}
           loading={usersLoading}
           onSearch={setSearch}
-          onFilter={(val) => handleSetFilters(val)}
+          filter={{
+            onFilter: (val) => handleSetFilters(val),
+            isActive: filters,
+          }}
           pagination={{
             page,
             withPagination: true,

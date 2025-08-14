@@ -17,8 +17,11 @@ export default function SearchTable({
   headers,
   loading,
   onSearch,
-  onFilter,
-  pagination, // group prop
+
+  // group prop
+  pagination,
+  filter,
+
   actions, // added table functionalities
 }) {
   // for pagination
@@ -52,7 +55,10 @@ export default function SearchTable({
           onChange={(e) => setSearch(e.target.value)}
           leftSection={<IconSearch size={20} />}
         />
-        <UsersFilterModal onFilter={onFilter} />
+        <UsersFilterModal
+          onFilter={filter.onFilter}
+          isActive={filter.isActive}
+        />
         {actions}
       </Group>
 
@@ -87,7 +93,7 @@ function TableLoader({ span }) {
     <Table.Tr>
       <Table.Td colSpan={span}>
         <Group justify="center">
-          <Loader />
+          <Loader type="bars" />
         </Group>
       </Table.Td>
     </Table.Tr>
