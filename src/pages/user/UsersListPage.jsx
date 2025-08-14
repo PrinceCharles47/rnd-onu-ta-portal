@@ -53,7 +53,7 @@ const normalizeUsersData = (arr) => {
 export default function UsersListPage() {
   const [currentTable, setCurrentTable] = useState("activeUsers"); // activeUsers || archivedUsers
   const [filters, setFilters] = useState(null);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
 
   const { allUsers, isLoading: usersLoading } = useUsers({
@@ -78,7 +78,7 @@ export default function UsersListPage() {
 
   const resetUsersParams = () => {
     setPage(1);
-    setSearch(null);
+    setSearch("");
     setFilters(null);
   };
 

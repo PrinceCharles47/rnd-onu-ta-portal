@@ -15,8 +15,8 @@ export const useUsers = ({ page, isActive, searchVal, filters }) => {
       {
         page,
         isActive,
-        search: filters ? null : searchVal || null,
-        filters: searchVal ? null : filters || null,
+        search: searchVal || null,
+        filters,
       },
     ],
     queryFn: () => userService.getUsers({ page, isActive, searchVal, filters }),

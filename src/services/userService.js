@@ -33,7 +33,8 @@ export const userService = {
     const params = {
       isActive,
       page: page || undefined,
-      ...(hasFilters ? filterParams : { search: searchVal || undefined }),
+      search: searchVal || undefined,
+      ...(hasFilters && filterParams),
     };
 
     return axiosInstanceDev
