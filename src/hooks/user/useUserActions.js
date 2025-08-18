@@ -9,6 +9,20 @@ const queryKeys = {
 export const useUserActions = () => {
   const queryClient = useQueryClient();
 
+  const createUser = useMutation({
+    mutationFn: userService.createUser,
+    onSuccess: async (data) => {
+      alertBus.showAlert(
+        {
+          title: "A new user has been added!",
+          message: data.message,
+        },
+        { color: "green" }
+      );
+      queryClient.invalidateQueries([queryKeys.ALL_USERS]);
+    },
+  });
+
   const changePassword = useMutation({
     mutationFn: ({ userId, payload }) =>
       userService.changePassword({ userId, payload }),
@@ -80,5 +94,8 @@ export const useUserActions = () => {
 
     removeAccount: removeAccount.mutate,
     isRemoveAccountPending: removeAccount.isPending,
+
+    createUser: createUser.mutate,
+    isCreateUserPending: createUser.isPending,
   };
 };

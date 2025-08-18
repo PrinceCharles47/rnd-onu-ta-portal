@@ -4,14 +4,14 @@ import IconBtn from "../buttons/IconBtn";
 import { IconFilter2 } from "@tabler/icons-react";
 
 import {
-  usersFilterFormConfig,
-  usersFilterFormFields,
-} from "../../utils/forms/usersFilter";
+  onuFilterFormConfig,
+  onuFilterFormFields,
+} from "../../utils/forms/onuFilter";
 import { openModal } from "../../utils/modal";
 import { useForm } from "@mantine/form";
 
-export default function UsersFilterModal({ onFilter, isEmpty }) {
-  const form = useForm(usersFilterFormConfig);
+export default function ONUFilterModal({ onFilter, isEmpty }) {
+  const form = useForm(onuFilterFormConfig);
 
   return (
     <Indicator
@@ -33,7 +33,7 @@ export default function UsersFilterModal({ onFilter, isEmpty }) {
               <FilterForm
                 onFilter={onFilter}
                 form={form}
-                fields={usersFilterFormFields}
+                fields={onuFilterFormFields}
               />
             ),
           })

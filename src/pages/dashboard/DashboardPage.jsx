@@ -1,235 +1,150 @@
-import { SimpleGrid, Container, Stack, Button } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-
-import NewONUForm from "../../components/forms/NewONUForm";
+// components
+import { SimpleGrid, Stack, Text, Table, Group, keys } from "@mantine/core";
 import AnalyticsCard from "../../components/cards/AnalyticsCard";
-import DefaultTable from "../../components/tables/DefaultTable";
 import ProtectedPageWrapper from "../../components/wrappers/ProtectedPageWrapper";
-import TableRowAction from "../../components/buttons/TableRowAction";
 import GenericBtn from "../../components/buttons/GenericBtn";
+import SearchTable from "../../components/tables/SearchTable";
+import AddONUModal from "../../components/modals/AddONUModal";
+import ONUListRows from "../../components/tables/rows/ONUListRows";
+import ONUFilterModal from "../../components/modals/ONUFilterModal";
 
-import { useMemo } from "react";
-import { useNavigate } from "react-router";
-import { DASHBOARD_HEADERS, ANALYTICS_CARD_HEADERS } from "../../utils/headers";
+// hooks
+import { useMemo, useState } from "react";
+import { useONU } from "../../hooks/onu/useONUs";
 
-const pageHeader = {
-  title: "Hello Charles!",
-  subtitle: "Welcome to R&D TA Portal",
-};
+import { dashBoardPageConfig } from "../../utils/page-configs/dashboardPageConfig";
 
-const tableData = [
-  {
-    id: "352BT2OI3",
-    model: "F611A",
-    status: "pendingIOF",
-    assignee: "Noah",
-  },
-  {
-    id: "GAER6G7AR",
-    model: "F611B",
-    status: "ongoingTA",
-    assignee: "Prince",
-  },
-  {
-    id: "7GA9RGG8R",
-    model: "F611C",
-    status: "readyForTA",
-    assignee: "Charles",
-  },
-  {
-    id: "GAE7GEHR8",
-    model: "F611D",
-    status: "readyForTA",
-    assignee: "Tim",
-  },
-  {
-    id: "KH0WE7GEE",
-    model: "F611E",
-    status: "typeApproved",
-    assignee: "Rocher",
-  },
-  {
-    id: "32Y5T2OI3",
-    model: "F611F",
-    status: "pendingIOF",
-    assignee: "Noah",
-  },
-  {
-    id: "GJRC6G7AR",
-    model: "F611G",
-    status: "readyForTA",
-    assignee: "Prince",
-  },
-  {
-    id: "7J25RGG8R",
-    model: "F611H",
-    status: "readyForTA",
-    assignee: "Charles",
-  },
-  {
-    id: "GHR4GEHR8",
-    model: "F611I",
-    status: "readyForTA",
-    assignee: "Tim",
-  },
-  {
-    id: "KA0W24GEE",
-    model: "F611J",
-    status: "typeApproved",
-    assignee: "Rocher",
-  },
-  {
-    id: "4HR4GEHR8",
-    model: "F611K",
-    status: "readyForTA",
-    assignee: "Tim",
-  },
-  {
-    id: "HE0W24GEE",
-    model: "F611L",
-    status: "typeApproved",
-    assignee: "Rocher",
-  },
-];
+const normalizeONUData = (onus) =>
+  onus.map((onu) => ({
+    id: onu.id,
+    name: onu.name,
+    model: onu.model,
+    wifiType: dashBoardPageConfig.wifiType[onu.wifiType],
+    ontType: onu.ontType.toUpperCase(),
+    status: dashBoardPageConfig.status[onu.status],
+  }));
 
 export default function DashboardPage({}) {
-  const [opened, { open, close }] = useDisclosure(false);
-  const navigate = useNavigate();
-  const user = { role: "rnd" };
+  const [currentTable, setCurrentTable] = useState("active"); // active || archive
+  const [filters, setFilters] = useState(null);
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
 
-  const redirect = (path) => {
-    return navigate(path);
+  const { allONUs, isLoading: onuLoading } = useONU({
+    isArchived: currentTable === "archive",
+    searchVal: search,
+    filters,
+    page,
+  });
+
+  // derived values
+  const count = allONUs?.count ?? 0;
+  const lastPage = allONUs?.lastPage ?? 1;
+  const onusData = allONUs?.data?.onus ?? [];
+  const counts = allONUs?.data?.counts ?? {};
+
+  const tableHeaders = useMemo(
+    () =>
+      dashBoardPageConfig.headers.table.map((header) => (
+        <Table.Th key={header}>{header}</Table.Th>
+      )),
+    []
+  );
+
+  const tableData = useMemo(() => normalizeONUData(onusData), [onusData]);
+
+  const tableAnalytics = useMemo(
+    () => [
+      {
+        title: "ONU Count",
+        icon: dashBoardPageConfig.icons.router,
+        value: counts.onuCount ?? 0,
+      },
+      {
+        title: "Pending IOF",
+        icon: dashBoardPageConfig.icons.pendingIof,
+        value: counts.pendingIofCount ?? 0,
+      },
+      {
+        title: "Ongoing TA",
+        icon: dashBoardPageConfig.icons.ongoingTa,
+        value: counts.ongoingTaCount ?? 0,
+      },
+      {
+        title: "Completed",
+        icon: dashBoardPageConfig.icons.completed,
+        value: counts.typeApprovedCount ?? 0,
+      },
+    ],
+    [counts]
+  );
+
+  const resetONUParams = () => {
+    setPage(1);
+    setSearch("");
+    setFilters(null);
   };
 
-  // returns the actions (buttons) of a row based on status field.
-  const getActions = (status, onuId = "") => {
-    const userAction = {
-      rnd: {
-        pendingIOF: (
-          <TableRowAction>
-            <GenericBtn
-              label="View request"
-              props={{ w: 125 }}
-              onClick={() => redirect(`/pending-iof/${onuId}`)}
-            />
-          </TableRowAction>
-        ),
-      },
-      vendor: {
-        readyForTA: (
-          <TableRowAction>
-            <GenericBtn
-              label="Start test"
-              props={{ w: 125 }}
-              onClick={() => redirect(`/services/${onuId}`)}
-            />
-          </TableRowAction>
-        ),
-        ongoingTA: (
-          <TableRowAction>
-            <GenericBtn
-              label="Continue test"
-              props={{ w: 125, color: "yellow" }}
-              onClick={() => redirect(`/services/${onuId}`)}
-            />
-          </TableRowAction>
-        ),
-      },
-    };
-    const actions = {
-      pendingIOF:
-        user.role === "rnd" ? (
-          userAction[user.role].pendingIOF
-        ) : (
-          <TableRowAction />
-        ),
-      readyForTA:
-        user.role === "vendor" ? (
-          userAction[user.role].readyForTA
-        ) : (
-          <TableRowAction />
-        ),
-      ongoingTA:
-        user.role === "vendor" ? (
-          userAction[user.role].ongoingTA
-        ) : (
-          <TableRowAction />
-        ),
-      typeApproved: <TableRowAction />,
-    };
-
-    return actions[status];
+  const handleTableChange = () => {
+    setCurrentTable((prev) => (prev === "active" ? "archive" : "active"));
+    resetONUParams();
   };
 
-  const tableItems = useMemo(() => {
-    return tableData.map((data) => {
-      return {
-        model: data.model,
-        status: data.status,
-        assignee: data.assignee,
-        action: getActions(data.status, data.id),
-      };
-    });
-  }, [tableData]);
+  const handleSetFilters = (val) => {
+    resetONUParams();
+    setFilters(val);
+  };
 
   return (
-    <ProtectedPageWrapper header={pageHeader}>
-      <Stack>
-        <div>
-          <SimpleGrid cols={{ base: 2, xs: 2, md: 4 }}>
-            {ANALYTICS_CARD_HEADERS.map((item) => (
-              <AnalyticsCard
-                key={item.title}
-                title={item.title}
-                value={item.value}
-                icon={item.icon}
-              />
-            ))}
-          </SimpleGrid>
-        </div>
-        <div>
-          <DefaultTable
-            items={tableItems}
-            headers={DASHBOARD_HEADERS}
-            title={"Huawei ONUs"}
-            action={<TableAction action={open} />}
-          />
-        </div>
+    <ProtectedPageWrapper header={dashBoardPageConfig.headers.page}>
+      <Stack mb="xl">
+        <Group justify="space-between">
+          <Text fz="sm" fw={700}>
+            {`${allONUs ? allONUs.count : 0} total ${
+              currentTable === "active" ? "active" : "archived"
+            } ONUs`}
+          </Text>
+
+          <Group gap="xs">
+            <GenericBtn
+              onClick={handleTableChange}
+              {...dashBoardPageConfig.tableToggleProps[currentTable]}
+            />
+          </Group>
+        </Group>
+
+        <SimpleGrid cols={{ base: 2, xs: 2, md: 4 }}>
+          {tableAnalytics.map((item) => (
+            <AnalyticsCard
+              key={item.title}
+              title={item.title}
+              value={item.value}
+              icon={item.icon}
+            />
+          ))}
+        </SimpleGrid>
+        <SearchTable
+          rows={<ONUListRows items={tableData} currentTable={currentTable} />}
+          headers={tableHeaders}
+          loading={onuLoading}
+          onSearch={setSearch}
+          filter={
+            <ONUFilterModal
+              onFilter={(val) => handleSetFilters(val)}
+              isEmpty={!filters || !keys(filters).length}
+            />
+          }
+          pagination={{
+            page,
+            withPagination: true,
+            onPaginate: setPage,
+            total: count,
+            pageCount: lastPage,
+            pageItemsLimit: dashBoardPageConfig.pageItemsLimit,
+          }}
+          actions={<AddONUModal />}
+        />
       </Stack>
-
-      <NewONUForm opened={opened} onClose={close} />
     </ProtectedPageWrapper>
-  );
-}
-
-function TableAction({ action }) {
-  return (
-    <Button radius="md" onClick={action}>
-      Add ONU
-    </Button>
-  );
-}
-
-function StartONUTestBtn({ onClick = () => {} }) {
-  return (
-    <Button w={125} size="xs" radius="md" onClick={onClick}>
-      Start Test
-    </Button>
-  );
-}
-
-function ContinueONUTestBtn({ onClick = () => {} }) {
-  return (
-    <Button w={125} size="xs" color="yellow" radius="md" onClick={onClick}>
-      Continue Test
-    </Button>
-  );
-}
-
-function ViewIOFRequest({ onClick = () => {} }) {
-  return (
-    <Button w={125} size="xs" radius="md" onClick={onClick}>
-      View Request
-    </Button>
   );
 }

@@ -3,9 +3,9 @@ import { tokenService } from "../services/tokenService";
 import { alertBus } from "./alertBus";
 
 function shouldShowError(query) {
-  const isActive = query.isActive(); // Observed by a mounted component
+  const isArchived = query.isArchived(); // Observed by a mounted component
   const isDisabled = query.options.enabled === false;
-  const isBackground = !isActive;
+  const isBackground = !isArchived;
 
   // If query.options.meta?.silent === true, it's a background/prefetch query we want to ignore
   const isSilent = query.options.meta?.silent === true;

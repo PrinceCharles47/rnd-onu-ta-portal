@@ -1,4 +1,12 @@
-import { Table, Text, Stack, keys, ActionIcon, Menu, Group } from "@mantine/core";
+import {
+  Table,
+  Text,
+  Stack,
+  keys,
+  ActionIcon,
+  Menu,
+  Group,
+} from "@mantine/core";
 
 // modals
 import ChangePasswordModal from "../../modals/ChangePasswordModal";
@@ -11,6 +19,8 @@ import { IconDotsVertical } from "@tabler/icons-react";
 const ROLES = {
   admin: "Admin",
   vendor: "Vendor",
+  rnd: "R&D",
+  super_admin: "Super Admin"
 };
 
 const VENDORS = {
@@ -79,7 +89,7 @@ export default function UsersListRows({ items, currentTable }) {
 
 function ActionsBtn({ user, currentTable }) {
   const actions = {
-    activeUsers: (
+    active: (
       <>
         <ChangePasswordModal user={user} />
         <DeactivateAccountModal user={user} />
@@ -87,7 +97,7 @@ function ActionsBtn({ user, currentTable }) {
         <RemoveUserModal user={user} />
       </>
     ),
-    archivedUsers: (
+    archive: (
       <>
         <RestoreAccountModal user={user} />
         <Menu.Divider />

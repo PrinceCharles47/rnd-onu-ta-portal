@@ -97,8 +97,7 @@
 }
 
 /* UserButton and SystemTitle*/
-.user,
-.systemTitle {
+.user {
   display: block;
   width: 100%;
   padding: var(--mantine-spacing-md);
@@ -110,6 +109,13 @@
       var(--mantine-color-dark-8)
     );
   }
+}
+
+.systemTitle {
+  display: block;
+  width: 100%;
+  padding: var(--mantine-spacing-md);
+  color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
 }
 
 /* NavLayout */

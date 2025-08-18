@@ -16,8 +16,9 @@ export const newUserFormFields = [
     type: "select",
     formkey: "roleName",
     data: [
-      { value: "vendor", label: "Vendor" },
       { value: "admin", label: "Admin" },
+      { value: "rnd", label: "R&D" },
+      { value: "vendor", label: "Vendor" },
     ],
   },
   {
@@ -49,8 +50,7 @@ const validate = {
   passwordConfirm: (value, values) =>
     value !== values.password ? "Passwords do not match." : null,
 
-  firstName: isNotEmpty("First name is required"),
-  middleName: null,
+  firstName: isNotEmpty("First name is required."),
   lastName: isNotEmpty("Last name is required."),
   companyName: isNotEmpty("Company name is required."),
   department: isNotEmpty("Department is required."),

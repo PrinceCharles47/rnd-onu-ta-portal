@@ -42,7 +42,7 @@ axiosInstanceDev.interceptors.response.use(
         tokenService.setAccessToken(res.accessToken);
         return axiosInstanceDev(originalRequest); // retry the failed request.
       } catch (refreshError) {
-        // if refresh token is also expired, redirect the user to login in page and clear the tokens.
+        // if refresh token is also expired, redirect the user to login page and clear the tokens.
         alertBus.showAlert(
           {
             title: "Session expired.",

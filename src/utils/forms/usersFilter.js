@@ -1,5 +1,3 @@
-import { isNotEmpty } from "@mantine/form";
-
 export const usersFilterFormFields = [
   { label: "Company Name", type: "text", formkey: "companyName" },
   { label: "Department", type: "text", formkey: "department" },

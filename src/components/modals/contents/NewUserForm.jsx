@@ -6,27 +6,26 @@ import {
   TextInput,
   Select,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
 import { useState } from "react";
 import { modals } from "@mantine/modals";
-import { useCreateUser } from "../../hooks/user/useCreateUser";
+import { useUserActions } from "../../../hooks/user/useUserActions";
 import {
-  newUserFormFields,
   newUserFormConfig,
-} from "../../utils/forms/newUser";
+  newUserFormFields,
+} from "../../../utils/forms/newUser";
+import { useForm } from "@mantine/form";
 
 export default function NewUserForm() {
-  const { createUser, isPending } = useCreateUser();
   const [hiddenFields, setHiddenFields] = useState(["vendorType"]);
+  const { createUser, isCreateUserPending: isPending } = useUserActions();
   const form = useForm(newUserFormConfig);
 
-  const handleCreateUser = () => {
-    const payload = form.getValues();
-    if (payload.roleName !== "vendor") {
-      payload.vendorType = "";
+  const handleCreateUser = (values) => {
+    if (values.roleName !== "vendor") {
+      values.vendorType = "";
     }
-    createUser(payload);
-    modals.closeAll();
+    createUser(values);
+    closeForm();
   };
 
   // show/hide fields
@@ -59,7 +58,6 @@ export default function NewUserForm() {
     const commonProps = {
       ...mantineProps,
       ...rest,
-      key: form.key(formkey),
       onChange: handleChange,
     };
 
@@ -69,27 +67,32 @@ export default function NewUserForm() {
         : undefined;
 
     const components = {
-      text: <TextInput {...commonProps} />,
-      select: <Select {...commonProps} style={hiddenStyle} />,
+      text: <TextInput key={form.key(formkey)} {...commonProps} />,
+      select: (
+        <Select key={form.key(formkey)} {...commonProps} style={hiddenStyle} />
+      ),
     };
 
-    return components[type] || <TextInput {...commonProps} />;
+    return (
+      components[type] || <TextInput key={form.key(formkey)} {...commonProps} />
+    );
+  };
+
+  const closeForm = () => {
+    form.reset();
+    modals.closeAll();
   };
 
   return (
-    <form onSubmit={form.onSubmit(handleCreateUser)}>
+    <form onSubmit={form.onSubmit((values) => handleCreateUser(values))}>
       <Stack>
         {newUserFormFields.map(getTextField)}
         <Divider />
         <Group grow>
-          <Button
-            variant="default"
-            disabled={isPending}
-            onClick={() => modals.closeAll()}
-          >
+          <Button variant="default" disabled={isPending} onClick={closeForm}>
             Close
           </Button>
-          <Button type="submit" color="teal" loading={isPending}>
+          <Button type="submit" loading={isPending}>
             Create
           </Button>
         </Group>

@@ -18,7 +18,7 @@ export const userService = {
       .get(`${USER_URL_PREFIX}/${userURLs.SIGNED_IN_USER}`)
       .then((res) => res.data),
 
-  getUsers: async ({ page, isActive, searchVal, filters }) => {
+  getUsers: async ({ page, isArchived, searchVal, filters }) => {
     const hasFilters = Boolean(filters && keys(filters).length > 0);
     const filterParams = hasFilters
       ? {
@@ -31,7 +31,7 @@ export const userService = {
 
     // Build params dynamically
     const params = {
-      isActive,
+      isArchived,
       page: page || undefined,
       search: searchVal || undefined,
       ...(hasFilters && filterParams),
@@ -55,14 +55,14 @@ export const userService = {
   deactivateAccount: ({ userId }) =>
     axiosInstanceDev
       .patch(`${USER_URL_PREFIX}/${userId}/${userURLs.ACCOUNT_ACTIVATION}`, {
-        isActive: false,
+        isArchived: true,
       })
       .then((res) => res.data),
 
   restoreAccount: ({ userId }) =>
     axiosInstanceDev
       .patch(`${USER_URL_PREFIX}/${userId}/${userURLs.ACCOUNT_ACTIVATION}`, {
-        isActive: true,
+        isArchived: false,
       })
       .then((res) => res.data),
 

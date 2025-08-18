@@ -7,20 +7,20 @@ import {
   TextInput,
   Paper,
 } from "@mantine/core";
-import UsersFilterModal from "../modals/UsersFilterModal";
-import IconBtn from "../buttons/IconBtn";
-import { IconSearch, IconArchive } from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 
 export default function SearchTable({
-  rows,
   headers,
   loading,
   onSearch,
 
+  // element props
+  rows,
+  filter,
+
   // group prop
   pagination,
-  filter,
 
   actions, // added table functionalities
 }) {
@@ -55,14 +55,11 @@ export default function SearchTable({
           onChange={(e) => setSearch(e.target.value)}
           leftSection={<IconSearch size={20} />}
         />
-        <UsersFilterModal
-          onFilter={filter.onFilter}
-          isActive={filter.isActive}
-        />
-        {actions}
+        {filter && filter}
+        {actions && actions}
       </Group>
 
-      <Table.ScrollContainer minWidth={900}>
+      <Table.ScrollContainer minWidth={1000}>
         <Table verticalSpacing="md" horizontalSpacing="lg">
           <Table.Thead>
             <Table.Tr>{headers}</Table.Tr>
@@ -93,7 +90,7 @@ function TableLoader({ span }) {
     <Table.Tr>
       <Table.Td colSpan={span}>
         <Group justify="center">
-          <Loader type="bars" />
+          <Loader type="dots" />
         </Group>
       </Table.Td>
     </Table.Tr>
